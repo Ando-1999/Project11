@@ -1,3 +1,7 @@
+<!--
+Sign-in Page for Environmental Data Analysis Tool
+Author/s: Blake J. Anderson (540244), 
+-->
 <!DOCTYPE html>
 
 <?php
@@ -16,7 +20,7 @@
 
 <html lang="en">
     <head>	
-        <title>Data Analysis Tool</title>
+        <title>Environmental Data Analysis Tool</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/sign-in.css">
 		    

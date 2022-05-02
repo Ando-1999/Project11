@@ -1,3 +1,8 @@
+<!--
+Login Engine for Environmental Data Analysis Tool
+Author/s: Blake J. Anderson (540244)
+-->
+
 <?php
 	//include the file session.php
 	include("session.php");
