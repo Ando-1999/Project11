@@ -3,9 +3,8 @@ Environmental Data Analysis Tool
 
 *Need detailed description here*
 
-======================================
-=	   For us, the developers        =
-======================================
+
+For Us, The Developers:
 Okay, so far I've gotten it to connect to my locally hosted server (which uses XAMPP). I have also gotten my old user and passsword sanitisation method to work successfully.
 For your use all you will need to modify are:
 	- db_conn
