@@ -14,3 +14,5 @@ CREATE TABLE users (
 INSERT INTO `users`(`first_name`, `last_name`, `password`, `email`, `no`) VALUES (
     'Dave','Davidson','$2a$12$3K.PbCCluU8.iq0ww5uhzehR/AVRfw1RUeOM4ku0zKif4PJAaqOYi','davo@localhost.com','0428807372'
 );
+
+#Test
