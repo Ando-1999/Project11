@@ -71,6 +71,9 @@ Author/s: Blake J. Anderson (540244),
                         <div class="form-floating">
                             <input type="password" class="form-control shadow-none" id="loginPassword" placeholder="Password">
                         </div>
+						<div class="form-floating" style="padding-bottom:10px;">
+							<a href="Password Reset.php" style="color:black;" >Forgot Password?</a>
+                        </div>
                         <?php
 							//If user is logged in, display log out and user details options
 							if ($session_access != "0") {
