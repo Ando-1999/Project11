@@ -47,7 +47,7 @@ Author/s: Blake J. Anderson (540244),
                 <div class="col-sm">
                     <form id="loginForm" action="" method="POST" class="form-signin" style="background-color:#ffffff;">
                         <h2 class="mb-3 fw-normal text-center">Environmental Data Analysis Tool</h2>
-                        <p class="mb-3 fw-normal text-center"><i>Please sign in</i></p>
+                        <!--<p class="mb-3 fw-normal text-center"><i>Please sign in</i></p>-->
 						<div class="col-sm" style="color:lightgray">
 							<?php
 								if ($session_access == "0") {
