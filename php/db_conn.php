@@ -1,9 +1,11 @@
 <?php
-//connect to mysql
-$mysqli = new mysqli('localhost', 'project11', 'ToorToor1', 'projecttestdb');
-
-if (mysqli_connect_errno()) {
-	printf("Connect failed: %s\n", mysqli_connect_error());
-	exit();
+//Connect to MySQL database
+$servername='localhost';
+$username='project11';
+$password1='ToorToor1';
+$dbname = "projecttestdb";
+$mysqli=mysqli_connect($servername,$username,$password1,$dbname);
+if(!$mysqli){
+   die('Could not Connect My Sql:' .mysqli_error($mysqli));
 }
-?>
+?> 

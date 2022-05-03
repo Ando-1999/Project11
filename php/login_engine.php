@@ -23,14 +23,10 @@ Author/s: Blake J. Anderson (540244) and Daiwei Yang (546818)
 
 
 	//Checks for the entered data
-	//$userCheck = preg_match('/^([0-9])+$/', $user);
-	//$passwordCheck = preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!?@#$%^])([a-zA-Z0-9\-_!?@#$%^])+$/', $password);
+
 
 	if (($user != "") AND ($password != "")){
 
-		//Checks for the entered data
-		//$userCheck = filter_var($user, FILTER_VALIDATE_EMAIL);
-		//$passwordCheck = preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!?@#$%^])([a-zA-Z0-9\-_!?@#$%^])+$/', $password);
 		//queries to check whether ID is in the table (check whether the user is registered)
 		$userQuery = "SELECT * FROM `users` WHERE email ='$user'";
 
