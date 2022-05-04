@@ -13,6 +13,7 @@ Author/s: Blake J. Anderson (540244) and Daiwei Yang (546818)
 	//receive the password data from the form
 	$password=$mysqli -> real_escape_string($_POST['pwd']);
 
+	//Check whether email or password is empty
 	if (empty($user)) {
         echo "Email is required";
     }
@@ -52,10 +53,12 @@ Author/s: Blake J. Anderson (540244) and Daiwei Yang (546818)
 
 			//Message successful login
 			echo 'Login Successful.';
+
 		}
 		else{
 			echo 'Invalid email or password, please try again';
 		} 
 		
-	} 
+	}
+	 
 ?>
