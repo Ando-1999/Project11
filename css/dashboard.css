@@ -1,0 +1,35 @@
+.searchbox{
+    position: absolute;
+    left: 0px;
+    width: 300px;
+    margin-top: 50px;
+    margin-left: 20px;
+
+
+}
+
+
+.map{
+    width: 50%; 
+    height: 400px; 
+    border: 1px solid #000;
+    position: absolute;
+    right: 10%; 
+    padding: 15px;
+    padding-top: 5px;
+    margin: 3%;
+    text-align: center;
+
+}
+
+.visualization{
+    width: 70%; 
+    height: 300px; 
+    border: 1px solid #000;
+    position: absolute;
+    right: 15%; 
+    bottom: 5%;
+    margin: 3%;
+    text-align: center;
+
+}

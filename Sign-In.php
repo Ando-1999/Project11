@@ -47,24 +47,6 @@ Author/s: Blake J. Anderson (540244),
                 <div class="col-sm">
                     <form id="loginForm" action="" method="POST" class="form-signin" style="background-color:#ffffff;">
                         <h2 class="mb-3 fw-normal text-center">Environmental Data Analysis Tool</h2>
-                        <!--<p class="mb-3 fw-normal text-center"><i>Please sign in</i></p>-->
-						<div class="col-sm" style="color:lightgray">
-							<?php
-								if ($session_access == "0") {
-									echo '
-									<div>
-										<p>Not Logged in</p>
-									</div>
-									';
-								}else if ($session_access != "0"){
-									echo '
-									<div>
-										<p>Logged in</p>
-									</div>
-									';
-								}
-							?>
-						</div>
                         <div class="form-floating" style="padding-bottom: 0.25px;">
                             <input type="email" class="form-control shadow-none" id="loginID" placeholder="name@example.com">
                         </div>
@@ -74,7 +56,9 @@ Author/s: Blake J. Anderson (540244),
 						<div class="form-floating" style="padding-bottom:10px;">
 							<a href="Password Reset.php" style="color:black;" >Forgot Password?</a>
                         </div>
+						
                         <?php
+						
 							//If user is logged in, display log out and user details options
 							if ($session_access != "0") {
 								echo '
@@ -113,7 +97,9 @@ Author/s: Blake J. Anderson (540244),
 						success: function (data) {
 							alert(data);
 							if (data.trim() == 'Login Successful.') {
-								location.reload();
+								//location.reload();
+								window.location.href="Dashboard.php";
+								
 							} else {
 								location.preventDefault();
 							}

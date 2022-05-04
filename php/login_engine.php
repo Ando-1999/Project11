@@ -53,10 +53,12 @@ Author/s: Blake J. Anderson (540244) and Daiwei Yang (546818)
 
 			//Message successful login
 			echo 'Login Successful.';
+
 		}
 		else{
 			echo 'Invalid email or password, please try again';
 		} 
 		
-	} 
+	}
+	 
 ?>
