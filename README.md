@@ -2,6 +2,8 @@
 Environmental Data Analysis Tool
 
 *Need detailed description here*
+Thank you for choosing to register and use the Environmental Data Analysis Tool! The purpose of this tool is to create an easy-to-use and accurate analysis tool for users. Here are some details about the analysis.
+
 
 
 For Us, The Developers:
