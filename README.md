@@ -5,6 +5,7 @@ Environmental Data Analysis Tool
 
 Thank you for choosing to register and use the Environmental Data Analysis Tool! The purpose of this tool is to create an easy-to-use and accurate analysis tool for users. Here are some details about the analysis.
 
+Developers connect the tool to the database and the data in the database is constantly updated. By connecting to the database, users can easily find the data they want. In addition, this tool implements usesr analysis requirements by using algorithms. Users can use this tool to analyze the data they need and draw conclusions for use.
 
 
 For Us, The Developers:
