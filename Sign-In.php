@@ -46,7 +46,7 @@ Author/s: Blake J. Anderson (540244),
             <div class="row">
                 <div class="col-sm">
                     <form id="loginForm" action="" method="POST" class="form-signin" style="background-color:#ffffff;">
-                        <h2 class="mb-3 fw-normal text-center">Environmental Data Analysis Tool</h2>
+                        <h2 class="mb-3 fw-normal text-center">USER LOGIN</h2>
                         <div class="form-floating" style="padding-bottom: 0.25px;">
                             <input type="email" class="form-control shadow-none" id="loginID" placeholder="name@example.com">
                         </div>
