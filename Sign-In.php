@@ -16,6 +16,11 @@ Author/s: Blake J. Anderson (540244),
 	    echo "
 		<script>alert('$errormessage');</script>";
     }
+
+	//Puts a logged in user back to the dashboard
+	if($session_access != 0){
+		header('location: ./Dashboard.php?error=Already%20Logged%20In');
+	}
 ?>
 
 <html lang="en">
@@ -56,22 +61,7 @@ Author/s: Blake J. Anderson (540244),
 						<div class="form-floating" style="padding-bottom:10px;">
 							<a href="Password Reset.php" style="color:black;" >Forgot Password?</a>
                         </div>
-						
-                        <?php
-						
-							//If user is logged in, display log out and user details options
-							if ($session_access != "0") {
-								echo '
-									<a href="php/signout.php" class="w-100 btn btn-lg btn-primary" role="button" id="logout">
-									Logout <i class="fas fa-sign-in-alt"></i></a>
-								';
-							//Else, if user is not logged in, display log in button
-							} else {
-								echo '
-									<button class="w-100 btn btn-lg btn-primary" type="submit" id="login">Sign in</button>
-								';
-							}
-						?>
+						<button class="w-100 btn btn-lg btn-primary" type="submit" id="login">Sign in</button>
                     </form>
                 </div>
             </div>
@@ -94,12 +84,12 @@ Author/s: Blake J. Anderson (540244),
 						dataType: "html",
 						//Reloads the page to update table
 						//If the message output is as shown, send to main page
-						success: function (data) {
-							alert(data);
-							if (data.trim() == 'Login Successful.') {
-								//location.reload();
+						success: function (response) {
+							//Alerts the user
+							alert(response);
+							if (response.trim() == 'Login Successful.') {
+								//Moves to dashboard page
 								window.location.href="Dashboard.php";
-								
 							} else {
 								location.preventDefault();
 							}
