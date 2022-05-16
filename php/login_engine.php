@@ -3,7 +3,6 @@
 Login Engine for Environmental Data Analysis Tool
 Author/s: Blake J. Anderson (540244) and Daiwei Yang (546818)
 */
-	error_reporting(0);
 	//include the file session.php
 	include("session.php");
 	//include the file db_conn.php
@@ -23,12 +22,12 @@ Author/s: Blake J. Anderson (540244) and Daiwei Yang (546818)
     }
 
 
+
 	//Secondary check to ensure user/password is not empty before proceeding
 	if (($user != "") AND ($password != "")){
 
 		//queries to check whether ID is in the table (check whether the user is registered)
 		$userQuery = "SELECT * FROM `users` WHERE email ='$user'";
-		
 
 		//execute query to the database and retrieve the result
 		$userQueryResult = $mysqli->query($userQuery);

@@ -46,12 +46,13 @@ Author/s: Blake J. Anderson (540244),
         </style>    
     </head>
 
-    <body style="background-color:#182E53;"> 
+    <body style="background-color:lightseagreen;"> 
         <div class="container">
             <div class="row">
                 <div class="col-sm">
                     <form id="loginForm" action="" method="POST" class="form-signin" style="background-color:#ffffff;">
-                        <h2 class="mb-3 fw-normal text-center">Environmental Data Analysis Tool</h2>
+                        <h2 class="title mb-3 fw-normal text-center">Data Analysis Tool</h2>
+						<h2 class="subtitle">User Login</h2>
                         <div class="form-floating" style="padding-bottom: 0.25px;">
                             <input type="email" class="form-control shadow-none" id="loginID" placeholder="name@example.com">
                         </div>
@@ -59,7 +60,7 @@ Author/s: Blake J. Anderson (540244),
                             <input type="password" class="form-control shadow-none" id="loginPassword" placeholder="Password">
                         </div>
 						<div class="form-floating" style="padding-bottom:10px;">
-							<a href="Password Reset.php" style="color:black;" >Forgot Password?</a>
+							<a href="Password Reset.php" style="color:black;" ><i>Forgot Password?</i></a>
                         </div>
 						<button class="w-100 btn btn-lg btn-primary" type="submit" id="login">Sign in</button>
                     </form>

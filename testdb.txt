@@ -1,4 +1,3 @@
-DROP TABLE users;
 DROP DATABASE projecttestdb;
 
 CREATE DATABASE projecttestdb;
