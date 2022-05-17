@@ -3,6 +3,10 @@ Environmental Data Analysis Tool
 
 *Need detailed description here*
 
+Thank you for choosing to register and use the Environmental Data Analysis Tool! The purpose of this tool is to create an easy-to-use and accurate analysis tool for users. Here are some details about the analysis.
+
+Developers connect the tool to the database and the data in the database is constantly updated. By connecting to the database, users can easily find the data they want. In addition, this tool implements usesr analysis requirements by using algorithms. Users can use this tool to analyze the data they need and draw conclusions for use.
+
 
 For Us, The Developers:
 Okay, so far I've gotten it to connect to my locally hosted server (which uses XAMPP). I have also gotten my old user and passsword sanitisation method to work successfully.

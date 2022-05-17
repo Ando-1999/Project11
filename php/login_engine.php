@@ -9,23 +9,21 @@ Author/s: Blake J. Anderson (540244) and Daiwei Yang (546818)
 	include("db_conn.php");
 
 	//receive the ID data from the form
-	$user=$mysqli -> real_escape_string($_POST['id']);
+	$user=$mysqli->real_escape_string($_POST['id']);
 	//receive the password data from the form
-	$password=$mysqli -> real_escape_string($_POST['pwd']);
+	$password=$mysqli->real_escape_string($_POST['pwd']);
 
 	//Check whether email or password is empty
 	if (empty($user)) {
         echo "Email is required";
     }
-
     elseif (empty($password)) {
         echo "Password is required";
     }
 
 
-	//Checks for the entered data
 
-
+	//Secondary check to ensure user/password is not empty before proceeding
 	if (($user != "") AND ($password != "")){
 
 		//queries to check whether ID is in the table (check whether the user is registered)
@@ -56,7 +54,7 @@ Author/s: Blake J. Anderson (540244) and Daiwei Yang (546818)
 
 		}
 		else{
-			echo 'Invalid email or password, please try again';
+			echo 'Invalid e-mail or password, please try again.';
 		} 
 		
 	}

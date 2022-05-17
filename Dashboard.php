@@ -5,6 +5,14 @@
 session_start();
 ?>
 
+<?php
+include("php/db_conn.php");
+$query = "SELECT * FROM piechart";
+$result = $mysqli->query($query);
+$query2 = "SELECT * FROM piechart2";
+$result2 = $mysqli->query($query2);
+@$content = $_SESSION["content"];
+?>
 
 <html lang="en">
     <head>	
@@ -26,7 +34,55 @@ session_start();
 
         <style>
 	        /*Nothing needed here yet...*/
-        </style>    
+        </style> 
+
+        <!-- Pie Chart -->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
+        </script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Abalone', 'Length'],
+                    <?php
+                    while ($chart = mysqli_fetch_assoc($result))
+                    {
+                        echo "['".$chart['Name']."',".$chart['Value']."],";
+                    }
+                    ?>
+                ]);
+
+                var options = {
+                    title: 'Abalone Length'
+                };
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }
+        </script>
+
+        <script type="text/javascript">
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Abalone', 'Diameter'],
+                    <?php
+                    while ($chart2 = mysqli_fetch_assoc($result2))
+                    {
+                        echo "['".$chart2['Name']."',".$chart2['Value']."],";
+                    }
+                    ?>
+                ]);
+
+                var options = {
+                    title: 'Abalone Diameter'
+                };
+                var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
+                chart2.draw(data, options);
+            }
+        </script>
+
     </head>
 
     <body>
@@ -68,10 +124,12 @@ session_start();
             </div>
         </nav>
         <!--Navigation Bar--> 
-
-        <div class = "searchbox" id = "searchbox">
+        
+        <form class="row g-3 needs-validation" action="" method="post">
+        <div class = "search" id = "search">
             <div class = "keyword" id= "keyword">
-                <input type="keywords" class="form-control shadow-none" id="keywords" placeholder="Please enter the keyword">
+                <input type="keywords" class="form-control shadow-none" id="keywords" name="keywords" placeholder="Please enter the keyword">
+                <button type="submit" class="searchbox btn btn-primary btn-sm" id = "searchbox">Search</button>
             </div>
 
             <div class = "specific" id = "specific">
@@ -96,12 +154,40 @@ session_start();
         </div>
 
         <div class = "visualization" id = "visualization" >
-            <p>Area for data visuilization </p>                
+            <div id="piechart" style="width: 60%; height: 100%;"></div>
+            <div id="piechart2" style="width: 60%; height: 100%;"></div>                  
         </div>
 
-        <div class = "map" id = "map" >
-            <p>Display the map here</p>                
+        <div class = "display" id = "display" >
+            <div class="table">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Abalone Length</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    <?php
+                            if(isset($_SESSION['keyword'])){
+                                @$query = "SELECT * FROM {$_SESSION['keywords']}";
+                                $result = $mysqli->query($query);
+                                while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                                  echo "<tr>";
+                                  echo "<th scope=\"row\">";
+                                  echo $row['Name'];
+                                  echo "</th>";
+                                  echo "<td>";
+                                  echo $row['Value'];
+                                  echo "</td>";
+                                }
+                            }
+                    ?>
+                </tbody>
+                </table>
+            </div>                   
         </div>
+        </form>
 
 
 
@@ -109,6 +195,39 @@ session_start();
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
       defer
     ></script>
+
+    		<!-- Ajax for Searching -->
+            <script>
+			$(document).ready(function () {
+				$("#searchbox").click(function () {
+					var keywords = $("#keywords").val();
+
+					$.ajax({
+						url: "php/searching.php",
+						method: "POST",
+						data: {	//Data to be submitted
+							keywords,
+						},
+						dataType: "html",
+						//Reloads the page to update table
+						//If the message output is as shown, send to main page
+                        success: function (response) {
+							//Alerts the user
+							alert(response);
+							if (response.trim() == 'Login Successful.') {
+								//Moves to dashboard page
+								window.location.href="Dashboard.php";
+							} else {
+								location.preventDefault();
+							}
+						}
+
+					});
+				});
+			});
+		</script>
+
+    
 
     <script>
         // Initialize and add the map
