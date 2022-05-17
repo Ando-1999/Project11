@@ -211,17 +211,6 @@ $result2 = $mysqli->query($query2);
 						dataType: "html",
 						//Reloads the page to update table
 						//If the message output is as shown, send to main page
-                        success: function (response) {
-							//Alerts the user
-							alert(response);
-							if (response.trim() == 'Login Successful.') {
-								//Moves to dashboard page
-								window.location.href="Dashboard.php";
-							} else {
-								location.preventDefault();
-							}
-						}
-
 					});
 				});
 			});
