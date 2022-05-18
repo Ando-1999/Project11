@@ -154,8 +154,8 @@ $result2 = $mysqli->query($query2);
         </div>
 
         <div class = "visualization" id = "visualization" >
-            <div id="piechart" style="width: 60%; height: 100%;"></div>
-            <div id="piechart2" style="width: 60%; height: 100%;"></div>                  
+            <div id="piechart" style="width: 50%; height: 90%;"></div>
+            <div id="piechart2" style="width: 50%; height: 90%;"></div>                  
         </div>
 
         <div class = "display" id = "display" >
@@ -169,7 +169,7 @@ $result2 = $mysqli->query($query2);
                     </thead>
                 <tbody>
                     <?php
-                            if(isset($_SESSION['keyword'])){
+                            if(isset($_SESSION['keywords'])){
                                 @$query = "SELECT * FROM {$_SESSION['keywords']}";
                                 $result = $mysqli->query($query);
                                 while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -210,7 +210,7 @@ $result2 = $mysqli->query($query2);
 						},
 						dataType: "html",
 						//Reloads the page to update table
-						//If the message output is as shown, send to main page
+
 					});
 				});
 			});
