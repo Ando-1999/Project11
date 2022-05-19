@@ -1,3 +1,8 @@
+<!--
+Password Reset Page for Environmental Data Analysis Tool
+Author/s: Blake J. Anderson (540244)
+-->
+
 <!DOCTYPE html>
 
 <?php

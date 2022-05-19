@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 
-
 <?php
-session_start();
-?>
+    error_reporting(0);
+    //include the file session.php
+    include('php/session.php');
+    include("php/db_conn.php");
 
-<?php
-include("php/db_conn.php");
-$query = "SELECT * FROM piechart";
-$result = $mysqli->query($query);
-$query2 = "SELECT * FROM piechart2";
-$result2 = $mysqli->query($query2);
-@$content = $_SESSION["content"];
+    //if there is any received error message
+    if(isset($_GET['error']))
+    {
+	    $errormessage=$_GET['error'];
+	    //show error message using javascript alert
+	    echo "
+		<script>alert('$errormessage');</script>";
+    }
+
+	//Puts a logged in user back to the sign-in if not logged in
+	if($session_access == 0){
+		header('location: ./Sign-In.php?error=Not%20Logged%20In');
+	}
+
+    $query = "SELECT * FROM abalone";
+    $result = $mysqli->query($query);
+    $query2 = "SELECT * FROM abalone2";
+    $result2 = $mysqli->query($query2);
+    @$content = $_SESSION["content"];
 ?>
 
 <html lang="en">
@@ -89,16 +102,14 @@ $result2 = $mysqli->query($query2);
     <!--Navigation Bar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="">Environment Tool</a>
+                <a class="navbar-brand" href="#">Environment Data Analysis Tool</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="">Data Analysis</a>
-                        </li>
                         
+                        <!--    Likely unnecessary
                         <li class="nav-item">
                             <?php
                             if (!isset($_SESSION['session_access'])) {
@@ -110,6 +121,7 @@ $result2 = $mysqli->query($query2);
                             } 
                             ?>
                         </li>
+                        -->
 
                         <li class="nav-item">
                             <?php
@@ -154,8 +166,13 @@ $result2 = $mysqli->query($query2);
         </div>
 
         <div class = "visualization" id = "visualization" >
-            <div id="piechart" style="width: 50%; height: 90%;"></div>
-            <div id="piechart2" style="width: 50%; height: 90%;"></div>                  
+            <?php
+            if(isset($_SESSION['keywords'])){
+                echo "<div id=\"piechart\" style=\"width: 50%; height: 90%;\"></div>";
+                echo "<div id=\"piechart2\" style=\"width: 50%; height: 90%;\"></div>";
+            }
+            ?>
+                            
         </div>
 
         <div class = "display" id = "display" >
@@ -163,8 +180,14 @@ $result2 = $mysqli->query($query2);
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">Abalone Length</th>
-                            <th scope="col">Value</th>
+                            <?php
+                            if(isset($_SESSION['keywords'])){
+                                echo "<th scope=\"col\">Lable</th>";
+                                echo "<th scope=\"col\">Value</th>";
+                            }
+                            ?>
+                            
+                            
                         </tr>
                     </thead>
                 <tbody>

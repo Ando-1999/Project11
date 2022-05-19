@@ -7,6 +7,15 @@
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.15
 
+--
+-- Removing tables to ensure fresh instances of each
+--  
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS abalone;
+DROP TABLE IF EXISTS abalone2;
+-- DROP DATABASE IF EXISTS projecttestdb;
+
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -20,6 +29,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `projecttestdb`
 --
+-- CREATE DATABASE projecttestdb;
 
 -- --------------------------------------------------------
 
