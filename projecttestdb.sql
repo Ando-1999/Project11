@@ -2,10 +2,10 @@
 -- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- 主机： 127.0.0.1
--- 生成日期： 2022-05-17 03:56:13
--- 服务器版本： 10.4.17-MariaDB
--- PHP 版本： 7.4.15
+-- Host: 127.0.0.1
+-- Generation Time: May 19, 2022 at 01:51 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.4.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,26 +18,26 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 数据库： `projecttestdb`
+-- Database: `projecttestdb`
 --
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `piechart`
+-- Table structure for table `abalone`
 --
 
-CREATE TABLE `piechart` (
+CREATE TABLE `abalone` (
   `Name` varchar(30) NOT NULL,
   `Value` int(30) NOT NULL,
   `ID` int(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 转存表中的数据 `piechart`
+-- Dumping data for table `abalone`
 --
 
-INSERT INTO `piechart` (`Name`, `Value`, `ID`) VALUES
+INSERT INTO `abalone` (`Name`, `Value`, `ID`) VALUES
 ('0.3-0.4', 13, 1),
 ('0.4-0.5', 16, 2),
 ('0.5-0.6', 8, 3),
@@ -46,20 +46,20 @@ INSERT INTO `piechart` (`Name`, `Value`, `ID`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `piechart2`
+-- Table structure for table `abalone2`
 --
 
-CREATE TABLE `piechart2` (
+CREATE TABLE `abalone2` (
   `Name` varchar(30) NOT NULL,
   `Value` int(30) NOT NULL,
   `ID` int(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 转存表中的数据 `piechart2`
+-- Dumping data for table `abalone2`
 --
 
-INSERT INTO `piechart2` (`Name`, `Value`, `ID`) VALUES
+INSERT INTO `abalone2` (`Name`, `Value`, `ID`) VALUES
 ('0.1-0.2', 8, 1),
 ('0.2-0.3', 20, 2),
 ('0.3-0.4', 21, 3),
@@ -69,7 +69,7 @@ INSERT INTO `piechart2` (`Name`, `Value`, `ID`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -83,52 +83,52 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 转存表中的数据 `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `password`, `email`, `no`, `passphrase`) VALUES
 (1, 'Dave', 'Davidson', '$2a$12$3K.PbCCluU8.iq0ww5uhzehR/AVRfw1RUeOM4ku0zKif4PJAaqOYi', 'davo@localhost.com', '0428807372', '$2a$12$S1WtsCDeHiYGDpT/rbIiyuLR7UlM58OyABBhiDX3ysIUU9jfB7Z0u');
 
 --
--- 转储表的索引
+-- Indexes for dumped tables
 --
 
 --
--- 表的索引 `piechart`
+-- Indexes for table `abalone`
 --
-ALTER TABLE `piechart`
+ALTER TABLE `abalone`
   ADD PRIMARY KEY (`ID`);
 
 --
--- 表的索引 `piechart2`
+-- Indexes for table `abalone2`
 --
-ALTER TABLE `piechart2`
+ALTER TABLE `abalone2`
   ADD PRIMARY KEY (`ID`);
 
 --
--- 表的索引 `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- 在导出的表使用AUTO_INCREMENT
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- 使用表AUTO_INCREMENT `piechart`
+-- AUTO_INCREMENT for table `abalone`
 --
-ALTER TABLE `piechart`
+ALTER TABLE `abalone`
   MODIFY `ID` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- 使用表AUTO_INCREMENT `piechart2`
+-- AUTO_INCREMENT for table `abalone2`
 --
-ALTER TABLE `piechart2`
+ALTER TABLE `abalone2`
   MODIFY `ID` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- 使用表AUTO_INCREMENT `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
