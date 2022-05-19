@@ -7,9 +7,9 @@ session_start();
 
 <?php
 include("php/db_conn.php");
-$query = "SELECT * FROM piechart";
+$query = "SELECT * FROM abalone";
 $result = $mysqli->query($query);
-$query2 = "SELECT * FROM piechart2";
+$query2 = "SELECT * FROM abalone2";
 $result2 = $mysqli->query($query2);
 @$content = $_SESSION["content"];
 ?>
@@ -154,8 +154,13 @@ $result2 = $mysqli->query($query2);
         </div>
 
         <div class = "visualization" id = "visualization" >
-            <div id="piechart" style="width: 50%; height: 90%;"></div>
-            <div id="piechart2" style="width: 50%; height: 90%;"></div>                  
+            <?php
+            if(isset($_SESSION['keywords'])){
+                echo "<div id=\"piechart\" style=\"width: 50%; height: 90%;\"></div>";
+                echo "<div id=\"piechart2\" style=\"width: 50%; height: 90%;\"></div>";
+            }
+            ?>
+                            
         </div>
 
         <div class = "display" id = "display" >
@@ -163,8 +168,14 @@ $result2 = $mysqli->query($query2);
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">Abalone Length</th>
-                            <th scope="col">Value</th>
+                            <?php
+                            if(isset($_SESSION['keywords'])){
+                                echo "<th scope=\"col\">Lable</th>";
+                                echo "<th scope=\"col\">Value</th>";
+                            }
+                            ?>
+                            
+                            
                         </tr>
                     </thead>
                 <tbody>
