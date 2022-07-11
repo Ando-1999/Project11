@@ -7,10 +7,18 @@ session_start();
 
 <?php
 include("php/db_conn.php");
-$query = "SELECT * FROM piechart";
+$query = "SELECT * FROM abalone";
 $result = $mysqli->query($query);
-$query2 = "SELECT * FROM piechart2";
+$query2 = "SELECT * FROM abalone2";
 $result2 = $mysqli->query($query2);
+$query3 = "SELECT `COLUMN_NAME` 
+FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE TABLE_NAME = 'clientdata'";
+$result3 = $mysqli->query($query3);
+$row = mysqli_fetch_array($result3);
+$fieldarr = array();
+while ($row = $result3->fetch_assoc()) {
+    array_push($fieldarr,$row['COLUMN_NAME']);
+}
 @$content = $_SESSION["content"];
 ?>
 
@@ -124,7 +132,9 @@ $result2 = $mysqli->query($query2);
             </div>
         </nav>
         <!--Navigation Bar--> 
-        
+
+
+        <!-- Searching -->
         <form class="row g-3 needs-validation" action="" method="post">
         <div class = "search" id = "search">
             <div class = "keyword" id= "keyword">
@@ -134,28 +144,87 @@ $result2 = $mysqli->query($query2);
 
             <div class = "specific" id = "specific">
                 <p>Please select a specific field</p>
-                <select name = "specificfield" id = "specificfield" >
+                <select name = "specificfield" id = "specificfield" onchange="PostFunction()">
                     <option value="">--Please choose an option--</option>
-                    <option value="">Specific field 1</option>
-                    <option value="">Specific field 2</option>
-                    <option value="">Specific field 3</option>
+                    <?php
+                     //$arr = array("PHP", "HTML", "CSS", "JavaScript");
+                     foreach($fieldarr as $v){
+                     ?>
+                     <option value="<?php echo strtoupper($v); ?>"><?php echo $v; ?></option>
+                     <?php
+                     }
+                     ?>
                 </select>
             </div>
+
+            <!-- To include jQuery-->        
+            <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+            <!-- Function to post the variable in the first drop-down list-->
+            <script>
+                function PostFunction() {
+                    $(document).ready(function() { {
+                    var keywords = $("#specificfield").val();
+        
+					$.ajax({
+						url: "php/searching.php",
+						method: "POST",
+						data: {	//Data to be submitted
+							keywords,
+						},
+						dataType: "html",
+                        
+
+					});
+
+				};
+			});
+            window.location.reload();
+            }
+            </script>
+
+            <!-- Retrive data for the second drop-down list-->
+            <?php
+            if(isset($_SESSION['keywords'])){
+                $query4 = "SELECT DISTINCT {$_SESSION['keywords']} FROM `clientdata`";
+                $result4 = $mysqli->query($query4);
+                $row2 = mysqli_fetch_array($result4);
+                $rangearr = array();
+                while ($row2 = $result4->fetch_assoc()) {
+                    array_push($rangearr,$row2[$_SESSION['keywords']]);
+                }
+            }
+
+            ?>
+            
 
             <div class = "range" id = "range">
                 <p>Please select a range</p>
                 <select name = "ranges" id = "ranges" >
-                    <option value="">--Please choose an option--</option>
-                    <option value="">Range 1</option>
-                    <option value="">Range 2</option>
-                    <option value="">Range 3</option>
+                <option value="">--Please choose an option--</option>
+                    <?php
+                     if(isset($_SESSION['keywords'])){
+                        foreach($rangearr as $v2){
+                            ?>
+                            <option value="<?php echo strtolower($v2); ?>"><?php echo $v2; ?></option>
+                            <?php
+                            }
+                     }
+ 
+                     ?>
                 </select>
             </div>
         </div>
-
+        
+        <!-- Data visuilization-->
         <div class = "visualization" id = "visualization" >
-            <div id="piechart" style="width: 60%; height: 100%;"></div>
-            <div id="piechart2" style="width: 60%; height: 100%;"></div>                  
+            <?php
+            if(isset($_SESSION['keywords'])){
+                echo "<div id=\"piechart\" style=\"width: 50%; height: 90%;\"></div>";
+                echo "<div id=\"piechart2\" style=\"width: 50%; height: 90%;\"></div>";
+                
+            }
+            ?>              
         </div>
 
         <div class = "display" id = "display" >
@@ -163,13 +232,22 @@ $result2 = $mysqli->query($query2);
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">Abalone Length</th>
-                            <th scope="col">Value</th>
+                            <?php
+                            if(isset($_SESSION['keywords'])){
+                                echo "<th scope=\"col\">Lable</th>";
+                                echo "<th scope=\"col\">Value</th>";
+                            }
+                            ?>
+                            
+                            
                         </tr>
                     </thead>
                 <tbody>
-                    <?php
-                            if(isset($_SESSION['keyword'])){
+                    <?php 
+                    
+                            if(isset($_SESSION['keywords'])){
+                                echo $_SESSION['keywords'];
+                                /*
                                 @$query = "SELECT * FROM {$_SESSION['keywords']}";
                                 $result = $mysqli->query($query);
                                 while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -180,7 +258,8 @@ $result2 = $mysqli->query($query2);
                                   echo "<td>";
                                   echo $row['Value'];
                                   echo "</td>";
-                                }
+                                  
+                                }*/
                             }
                     ?>
                 </tbody>
@@ -196,11 +275,13 @@ $result2 = $mysqli->query($query2);
       defer
     ></script>
 
-    		<!-- Ajax for Searching -->
+    	
+    <!-- Ajax for Searching -->
+    <!--	
             <script>
 			$(document).ready(function () {
 				$("#searchbox").click(function () {
-					var keywords = $("#keywords").val();
+					var keywords = $("#specificfield").val();
 
 					$.ajax({
 						url: "php/searching.php",
@@ -210,22 +291,11 @@ $result2 = $mysqli->query($query2);
 						},
 						dataType: "html",
 						//Reloads the page to update table
-						//If the message output is as shown, send to main page
-                        success: function (response) {
-							//Alerts the user
-							alert(response);
-							if (response.trim() == 'Login Successful.') {
-								//Moves to dashboard page
-								window.location.href="Dashboard.php";
-							} else {
-								location.preventDefault();
-							}
-						}
 
 					});
 				});
 			});
-		</script>
+		    </script>-->
 
     
 
