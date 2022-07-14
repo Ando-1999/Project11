@@ -22,6 +22,7 @@
     padding-top: 5px;
     margin-top: 3%;
     text-align: center;
+    overflow-x: auto;
 
 }
 
@@ -39,5 +40,6 @@
     text-align: center;
     display: flex;
     flex-direction: row;
+    overflow-x: auto;
 
 }

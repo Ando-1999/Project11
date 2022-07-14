@@ -1,8 +1,9 @@
 <?php
-include("session.php");
+session_start();
 include("db_conn.php");
-@$keywords = $mysqli->real_escape_string($_POST['keywords']);
-$_SESSION['keywords'] = $keywords;
+@$specificfield= $mysqli->real_escape_string($_POST['specificfield']);
+$_SESSION['specificfield1'] = $specificfield;
+
 
 ?>
 
