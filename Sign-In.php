@@ -6,7 +6,7 @@ Author/s: Blake J. Anderson (540244),
 
 <?php
     //include the file session.php
-    include('php/session.php');
+    include('assets/php/session.php');
 
     //if there is any received error message
     if(isset($_GET['error']))
@@ -27,10 +27,11 @@ Author/s: Blake J. Anderson (540244),
     <head>	
         <title>Environmental Data Analysis Tool</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/sign-in.css">
 		    
         <!-- CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="assets/css/style.css">
+		<link rel="stylesheet" href="assets/css/password.css">
 
         <!-- JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -46,21 +47,21 @@ Author/s: Blake J. Anderson (540244),
         </style>    
     </head>
 
-    <body style="background-color:lightseagreen;"> 
+    <body> 
         <div class="container">
             <div class="row">
                 <div class="col-sm">
-                    <form id="loginForm" action="" method="POST" class="form-signin" style="background-color:#ffffff;">
+                    <form id="loginForm" action="" method="POST" class="form-signin">
                         <!--<h2 class="title mb-3 fw-normal text-center">Data Analysis Tool</h2>-->
-						<h2 class="subtitle">USER LOGIN</h2>
+						<h2 class="subtitle">User Login</h2>
                         <div class="form-floating" style="padding-bottom: 0.25px;">
-                            <input type="email" class="form-control shadow-none" id="loginID" placeholder="name@example.com">
+                            <input type="email" class="form-control shadow-none" id="userID" placeholder="name@example.com">
                         </div>
                         <div class="form-floating">
-                            <input type="password" class="form-control shadow-none" id="loginPassword" placeholder="Password">
+                            <input type="password" class="form-control shadow-none" id="userPassword" placeholder="Password">
                         </div>
 						<div class="form-floating" style="padding-bottom:10px;">
-							<a href="Password Reset.php" style="color:black;" ><i>Forgot Password?</i></a>
+							<a href="PasswordReset.php" style="color:black;" ><i>Forgot Password?</i></a>
                         </div>
 						<button class="w-100 btn btn-lg btn-primary" type="submit" id="login">Sign in</button>
                     </form>
@@ -72,11 +73,11 @@ Author/s: Blake J. Anderson (540244),
         <script>
 			$(document).ready(function () {
 				$("#login").click(function () {
-					var id = $("#loginID").val();
-					var pwd = $("#loginPassword").val();
+					var id = $("#userID").val();
+					var pwd = $("#userPassword").val();
 
 					$.ajax({
-						url: "php/login_engine.php",
+						url: "assets/php/login_engine.php",
 						method: "POST",
 						data: {	//Data to be submitted
 							id,
