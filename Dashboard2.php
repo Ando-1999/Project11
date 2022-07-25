@@ -96,27 +96,7 @@ Daiwei Yang (546818)
             }
         </script>
 
-        <script type="text/javascript">
-            google.charts.load('current', {'packages':['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
-            function drawChart() {
-                var data = google.visualization.arrayToDataTable([
-                    ['Abalone', 'Diameter'],
-                    <?php
-                    while ($chart2 = mysqli_fetch_assoc($result2))
-                    {
-                        echo "['".$chart2['Name']."',".$chart2['Value']."],";
-                    }
-                    ?>
-                ]);
 
-                var options = {
-                    title: 'Abalone Diameter'
-                };
-                var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
-                chart2.draw(data, options);
-            }
-        </script>
 </head>
 <body>
 
@@ -272,15 +252,45 @@ Daiwei Yang (546818)
 
 		</form>
 
-		<!-- Piecharts -->
+		<!-- Piechart and Table-->
 
         <div class = charts>
-            <?php
-            if(@$_SESSION['ranges1'] != ""){
-                echo "<div id=\"piechart\" style=\"width: 50%; height: 90%;\"></div>";
-                echo "<div id=\"piechart2\" style=\"width: 50%; height: 90%;\"></div>";
-            }
-            ?>  
+            <div class = piecharts>
+                <?php
+                if(@$_SESSION['ranges1'] != ""){
+                    echo "<div id=\"piechart\"></div>";
+                }
+                ?>                
+            </div>
+
+            <div id ="table" class = "table">
+                <table>
+                    <tr>
+                        <?php
+                        if(@$_SESSION['ranges1'] != ""){
+                            echo "<th>Name</th>";
+                            echo "<th>Percentage</th>";
+                        }
+                        ?>
+
+                    </tr>
+
+                    <tr>
+                        <?php
+                        if(@$_SESSION['ranges1'] != ""){
+                            foreach(array_count_values($rangearr) as $x => $val){    
+                                $percentage = $val / $total;
+                            echo "<tr>";
+                            echo "<td>$x</td>";
+                            echo "<td>$percentage</td>";
+                            echo "</tr>";
+                        }}
+
+                        ?>
+                    </tr>
+
+                </table>
+            </div>  
         </div>
 
 
