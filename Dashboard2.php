@@ -49,7 +49,7 @@ Daiwei Yang (546818)
 	@$content = $_SESSION["content"];
 	?>
 
-    <!-- Retrive Pie Chart Data-->
+    <!-- Retrieve Pie Chart Data-->
     <?php
     if(isset($_SESSION['ranges1']) & isset($_SESSION['specificfield1'])){
         $query6 = "SELECT `{$_SESSION['specificfield1']}` FROM `clientdata`";
