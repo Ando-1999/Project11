@@ -1,0 +1,57 @@
+.input-row {
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+
+.btn-submit {
+    background: #333;
+    border: #1d1d1d 1px solid;
+    color: #f0f0f0;
+    font-size: 0.9em;
+    width: 190px;
+    border-radius: 3px;
+    cursor: pointer;
+    height: 40px;
+}
+
+#response {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    display: inline-block;
+    font-size: larger;
+    margin-left: 20px;
+}
+
+.values .val-box {
+    background: #fff;
+    background-size: contain;
+    width: 500px;
+    height: 200px;
+    padding: 16px 20px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: start;
+}
+
+.success {
+    background: #c7efd9;
+    border: #bbe2cd 1px solid;
+}
+
+.error {
+    background: #fbcfcf;
+    border: #f3c6c7 1px solid;
+}
+
+.file {
+    border: 1px solid #0f0f0e;
+    padding: 8px 5px;
+    border-radius: 3px;
+    width: 350px;
+    font-size: large;
+    color: #171919;
+    margin-bottom: 10px;
+}

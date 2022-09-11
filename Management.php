@@ -25,9 +25,9 @@
         </div>
 
         <div class="items">
-            <li><i class="fa-solid fa-house"></i><a href="Home.php">Home</a></li>
             <li><i class="fa-solid fa-chart-pie"></i><a href="Dashboard.php">Dashboard</a></li>
             <li><i class="fa-solid fa-magnifying-glass-chart"></i><a href="Analysis.php">Data Analysis</a></li>
+            <li><i class="fa-solid fa-robot"></i><a href="MachineLearning.php">ML Algorithm</a></li>
             <li><i class="fa-solid fa-users"></i><a href="Management.php">User Management</a></li>
             <li><i class="fa-solid fa-file-excel"></i><a href="Excel.php">Excel</a></li>
         </div>
@@ -68,6 +68,7 @@
                     <tr>
                         <td>Name</td>
                         <td>Title</td>
+                        <td>Status</td>
                         <td>Role</td>
                         <td></td>
                     </tr>

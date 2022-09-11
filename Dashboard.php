@@ -19,9 +19,9 @@ Daiwei Yang (546818)
     }
 
 	//Puts a logged in user back to the dashboard
-	/*if($session_access == 0){
+	if($session_access == 0){
 		header('location: ./Sign-In.php?error=Not%20Logged%20In');
-	}*/
+	}
 ?>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -39,37 +39,36 @@ Daiwei Yang (546818)
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-	<!-- Get data for piecharts -->
+    <!-- Get data for piecharts -->
 	<?php
-	include("assets/php/db_conn.php");
-	$query = "SELECT * FROM abalone";
-	$result = $mysqli->query($query);
-	$query2 = "SELECT * FROM abalone2";
-	$result2 = $mysqli->query($query2);
-	@$content = $_SESSION["content"];
+	    include("assets/php/db_conn.php");
+	    $query = "SELECT * FROM abalone";
+	    $result = $mysqli->query($query);
+	    $query2 = "SELECT * FROM abalone2";
+	    $result2 = $mysqli->query($query2);
+	    @$content = $_SESSION["content"];
 	?>
 
     <!-- Retrieve Pie Chart Data-->
     <?php
-    if(isset($_SESSION['ranges1']) & isset($_SESSION['specificfield1'])){
-        $query6 = "SELECT `{$_SESSION['specificfield1']}` FROM `clientdata`";
-        $result6 = $mysqli->query($query6);
-        $row6 = mysqli_fetch_array($result6);
-        @$rangearr = array();
-        while ($row6 = $result6->fetch_assoc()) {
-          array_push($rangearr,$row6[$_SESSION['specificfield1']]);
-        }
+        if(isset($_SESSION['ranges1']) & isset($_SESSION['specificfield1'])){
+            $query6 = "SELECT `{$_SESSION['specificfield1']}` FROM `clientdata`";
+            $result6 = $mysqli->query($query6);
+            $row6 = mysqli_fetch_array($result6);
+            @$rangearr = array();
+            while ($row6 = $result6->fetch_assoc()) {
+              array_push($rangearr,$row6[$_SESSION['specificfield1']]);
+            }
     
-        //To calculate the percentage of each item
-        $total = 0;
-        foreach(array_count_values($rangearr) as $x => $val){    
-          $total = $val + $total;
+            //To calculate the percentage of each item
+            $total = 0;
+            foreach(array_count_values($rangearr) as $x => $val){    
+              $total = $val + $total;
+            }
+            foreach(array_count_values($rangearr) as $x => $val){    
+              $percentage = $val / $total;
+            }
         }
-        foreach(array_count_values($rangearr) as $x => $val){    
-          $percentage = $val / $total;
-        }
-    }
-
     ?>
 
 	<!--Draw Pie Chart -->
@@ -94,9 +93,8 @@ Daiwei Yang (546818)
                 var chart = new google.visualization.PieChart(document.getElementById('piechart'));
                 chart.draw(data, options);
             }
-        </script>
-
-
+    </script>
+	
 </head>
 <body>
 
@@ -120,22 +118,11 @@ Daiwei Yang (546818)
     <section id="interface">
         <div class="navigation">
 
-            <!-- Search -->
-            <div class="n1">
-                <div>
-                    <i id="menu-btn" class="fa-solid fa-bars"></i>
-                </div>
-                <div class="search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <form>
-                        <input type="text" placeholder="Search..." />
-                    </form>
-                </div>
-            </div>
+            <!-- Spacer -->
+            <div class="n1"></div>
 
             <!-- Profile (We will likey use something else here)-->
             <div class="profile">
-                <i class="fa-solid fa-bell"></i>
                 <img src="assets/img/userimg.png" />
                 <?php
                 if (isset($_SESSION['session_access'])) {
@@ -151,8 +138,6 @@ Daiwei Yang (546818)
         <?php
             include('assets/php/get_data.php');
         ?>
-
-
 
 
         <!-- Searching -->
@@ -258,7 +243,7 @@ Daiwei Yang (546818)
 				    }
 				    </script>
                 </div>
-                <button type="submit" class="searchbox btn btn-primary btn-sm" id = "searchbox">Search</button>
+                <button type="submit" class="searchbox btn btn-primary btn-sm" id="searchbox">Search</button>
 			</div>        
 		</form>
 
@@ -405,8 +390,8 @@ Daiwei Yang (546818)
                                 echo "<td>";
                                 echo $row3['PHAEOPHYTIN_STDDEV'];
                                 echo "</td>";
-                                }
-						    }
+                            }
+						}
 					    ?>
 				    </tbody>
 			    </table> 

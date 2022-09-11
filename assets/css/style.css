@@ -302,10 +302,6 @@ thead tr td {
     float: right;
 }
 
-th, td {
-    border: 1px solid black;
-}
-
 table{
     border-collapse: collapse;
 }

@@ -1,7 +1,3 @@
-# DashboardTest
-Dashboard for testing purposes
+# Project 11: Aquaculturual Environment Monitor
 
-
-Dashboard	= Unmodified dashboard; used for style testing
-Dashboard2	= Dashboard w/ new table display method
-Dashboard3	= Dashboard w/ old table display method
+*insert fancy description of each page here and function*

@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\assets",
+    "\\assets\\css",
+    "\\assets\\php"
   ],
-  "SelectedNode": "\\Dashboard2.php",
+  "SelectedNode": "\\assets\\php\\older_import.php",
   "PreviewInSolutionExplorer": false
 }

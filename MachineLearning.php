@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Data Analysis</title>
+    <title>ML Algorithm</title>
 
     <!-- CSS Links -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -58,11 +58,11 @@
         </div>
 
         <!-- Title -->
-        <h3 class="i-name">Data Analysis</h3>
+        <h3 class="i-name">ML Algorithm</h3>
 
         <!-- Data Analysis Content -->
         <div class="values">
-            <p>Basic analysis functions go here</p>
+            <p>ML Algorithms and whatnot needs to go here ahaha</p>
         </div>
 
 
