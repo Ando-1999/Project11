@@ -85,7 +85,9 @@
                     <div class="input-row">
                     <p/ ><p/ ><br>
                         <div class="export">
-                            <button type="submit" id="exportsubmit" name="export" class="btn-submit">Export</button>
+                            <form action="assets/php/export.php">
+                                <input type="submit" name="submit" class="btn-submit" value="Export Data" />
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -98,7 +100,7 @@
                     <form class="form-horizontal" action="assets/php/import.php" method="post" id="importcsv" enctype="multipart/form-data">
                         <div class="input-row">
                             <input type="file" name="import_csv" id="import_csv" class="file" accept=".csv"/>
-                            <input type="submit" name="submit" value="submit"/>
+                            <button type="submit" name="submit" value="submit" class="btn-submit">Import</button>
                         </div>
                     </form>
                 </div>
@@ -129,7 +131,6 @@
 	    $(document).ready(function(){  
 		    $('#importcsv').on("submit", function(e){
                 e.preventDefault();             //form will not submitted 
-			    alert("Button pressed!");
 			    $.ajax({  
 				    url:"assets/php/import.php",  
 				    method:"POST",  
@@ -154,3 +155,4 @@
     </script>
 </body>
 </html>
+
