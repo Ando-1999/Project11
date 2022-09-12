@@ -34,6 +34,7 @@ Daiwei Yang (546818)
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
 
     <!-- jQuery -->
@@ -248,9 +249,8 @@ Daiwei Yang (546818)
 		</form>
 
 		<!-- Piechart and Table-->
-
-        <div class = charts>
-            <div class = piecharts>
+        <div class = "charts">
+            <div class = "piecharts">
                 <?php
                 if(@$_SESSION['ranges1'] != ""){
                     echo "<div id=\"piechart\"></div>";
@@ -258,32 +258,32 @@ Daiwei Yang (546818)
                 ?>                
             </div>
 
-            <div id ="table" class = "table">
+            <div class = "table">
                 <table>
-                    <tr>
-                        <?php
-                        if(@$_SESSION['ranges1'] != ""){
-                            echo "<th>Name</th>";
-                            echo "<th>Percentage</th>";
-                        }
-                        ?>
-
-                    </tr>
-
-                    <tr>
-                        <?php
-                        if(@$_SESSION['ranges1'] != ""){
-                            foreach(array_count_values($rangearr) as $x => $val){    
-                                $percentage = $val / $total;
-                            echo "<tr>";
-                            echo "<td>$x</td>";
-                            echo "<td>$percentage</td>";
-                            echo "</tr>";
-                        }}
-
-                        ?>
-                    </tr>
-
+                    <thead>
+                        <tr>
+                            <?php
+                            if(@$_SESSION['ranges1'] != ""){
+                                echo "<td>Name</td>";
+                                echo "<td>Percentage</td>";
+                            }
+                            ?>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <?php
+                            if(@$_SESSION['ranges1'] != ""){
+                                foreach(array_count_values($rangearr) as $x => $val){    
+                                    $percentage = $val / $total;
+                                    echo "<tr>";
+                                    echo "<td>$x</td>";
+                                    echo "<td>$percentage</td>";
+                                    echo "</tr>";
+                                }
+                            }
+                            ?>
+                        </tr>
+                    </tbody>
                 </table>
             </div>  
         </div>
@@ -310,7 +310,7 @@ Daiwei Yang (546818)
 				    <tbody>
 					    <?php                    
 					    if(isset($_SESSION['ranges1']) & isset($_SESSION['specificfield1']) ){    
-						    @$query5 = "SELECT * FROM `clientdata` WHERE `{$_SESSION['specificfield1']}` = '{$_SESSION['ranges1']}' ";
+						    @$query5 = "SELECT * FROM `clientdata` WHERE `{$_SESSION['specificfield1']}` = '{$_SESSION['ranges1']}' ORDER BY TRIP_ID ASC";
 						    $result5 = $mysqli->query($query5);
                             while ($row3 = $result5->fetch_array(MYSQLI_ASSOC)) {
                                 echo "<tr>";

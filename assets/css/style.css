@@ -102,6 +102,7 @@ body{
 
     position: fixed;
     width: calc(100% - 300px);
+    z-index: 33;
 }
 
 .n1{
@@ -173,20 +174,6 @@ body{
     margin-top: 70px;
 }
 
-.charts{
-    display: flex;
-    flex-direction:row;
-    margin: 2%;
-    width: auto;
-    height: auto;
-}
-
-.piecharts {
-    width: 50%;
-    margin-right: 10%;
-    z-index: -1;
-}
-
 /* Values */
 .values {
     padding: 30px 30px 0 30px;
@@ -242,7 +229,6 @@ body{
 .values .val-box:nth-child(4) i{
     background: #6fa8dc;
 }
-
 
 
 /* Table */

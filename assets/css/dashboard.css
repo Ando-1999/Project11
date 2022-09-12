@@ -10,7 +10,6 @@
     margin-bottom: 3%;
 }
 
-
 .display {
     width: 50%;
     height: 40%;
@@ -40,3 +39,59 @@
     flex-direction: row;
     overflow-x: auto;
 }
+
+/*--The Percentages Table/Piechart--*/
+.charts {
+    display: flex;
+    flex-direction: row;
+    margin: 2%;
+    width: auto;
+    height: auto;
+}
+
+.charts .piecharts {
+    width: 50%;
+    margin-right: 10%;
+    z-index: -1;
+}
+
+.charts .table {
+    max-height: 500px;
+    overflow: auto;
+}
+
+.charts thead tr td {
+    position: sticky;
+    top: 0px;
+}
+
+.charts .table {
+    background: #fff;
+    margin-left: 10%;
+    overflow-y: auto;
+    width: auto;
+    height: 300px;
+    float: right;
+}
+
+.charts table {
+    border-collapse: collapse;
+}
+
+.charts tr {
+    border-bottom: 1px solid #eef0f3;
+}
+
+.charts thead td {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    background: #f0fafb;
+    text-align: start;
+    padding: 15px;
+}
+
+.charts tbody tr td {
+    padding: 10px 15px;
+}
+/*---------------------------------*/
