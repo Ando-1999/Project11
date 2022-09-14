@@ -1,3 +1,7 @@
+<!--
+Excel Page for Environmental Data Analysis Tool
+Author/s: Blake J. Anderson (540244)
+-->
 <!DOCTYPE html>
 
 <?php
@@ -50,7 +54,11 @@
             <li><i class="fa-solid fa-chart-pie"></i><a href="Dashboard.php">Dashboard</a></li>
             <li><i class="fa-solid fa-magnifying-glass-chart"></i><a href="Analysis.php">Data Analysis</a></li>
             <li><i class="fa-solid fa-robot"></i><a href="MachineLearning.php">ML Algorithm</a></li>
-            <li><i class="fa-solid fa-users"></i><a href="Management.php">User Management</a></li>
+            <?php
+                if($session_access == 2){
+		            echo "<li><i class=\"fa-solid fa-users\"></i><a href=\"Management.php\">User Management</a></li>";
+	            }
+            ?>
             <li><i class="fa-solid fa-file-excel"></i><a href="Excel.php">Excel</a></li>
         </div>
     </section>

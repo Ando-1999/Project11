@@ -43,7 +43,12 @@ Author/s: Blake J. Anderson (540244) and Daiwei Yang (546818)
 			//save the user's name in the session
 			$session_firstname = $rowUser['first_name'];
 			//save the access level (determined by role) in the session
-			$session_access = "1";
+			//save the access level (determined by role) in the session
+			if($rowUser['role_id'] == 2){
+				$session_access = "2";
+			} else {
+				$session_access = "1";
+			}
 
 			$_SESSION['session_ID']=$session_ID;
 			$_SESSION['session_firstname']=$session_firstname;

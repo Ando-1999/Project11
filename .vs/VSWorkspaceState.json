@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\assets",
-    "\\assets\\css",
-    "\\assets\\php"
+    "\\assets\\css"
   ],
-  "SelectedNode": "\\assets\\php\\reset_engine.php",
+  "SelectedNode": "\\Analysis.php",
   "PreviewInSolutionExplorer": false
 }

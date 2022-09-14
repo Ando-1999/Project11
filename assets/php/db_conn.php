@@ -1,9 +1,9 @@
 <?php
 	//Connect to MySQL database
 	$servername='localhost';
-	$username='project11';
-	$password='ToorToor1';
-	$dbname = "projecttestdb";
+	$username='root';
+	$password='';
+	$dbname = 'aq_data_db';
 	$mysqli=mysqli_connect($servername,$username,$password,$dbname);
 
 	if(!$mysqli){

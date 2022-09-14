@@ -7,7 +7,7 @@ Author/s: Blake J. Anderson (540244)
 // Load the database configuration file
 include('db_conn.php');
 
-$query = "SELECT * FROM clientdata";
+$query = "SELECT * FROM aq_data";
 $result = $mysqli->query($query);
 if (!$result) die('Couldn\'t fetch records');
 $headers = $result->fetch_fields();

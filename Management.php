@@ -1,4 +1,33 @@
+<!--
+Management Page for Environmental Data Analysis Tool
+Author/s: Blake J. Anderson (540244)
+Daiwei Yang (546818)
+-->
 <!DOCTYPE html>
+
+<?php
+    //DB Connection
+    include("assets/php/db_conn.php");
+
+    //include the file session.php
+    include('assets/php/session.php');
+
+    //if there is any received error message
+    if(isset($_GET['error']))
+    {
+	    $errormessage=$_GET['error'];
+	    //show error message using javascript alert
+	    echo "
+        <script>alert('$errormessage');</script>";
+    }
+
+	//Puts a logged in user back to the dashboard
+	if($session_access == 0){
+		header('location: ./Sign-In.php?error=Not%20Logged%20In');
+	} else if ($session_access == 1){
+        header('location: ./Dashboard.php?error=Not%20Authorised');
+    }
+?>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -28,7 +57,11 @@
             <li><i class="fa-solid fa-chart-pie"></i><a href="Dashboard.php">Dashboard</a></li>
             <li><i class="fa-solid fa-magnifying-glass-chart"></i><a href="Analysis.php">Data Analysis</a></li>
             <li><i class="fa-solid fa-robot"></i><a href="MachineLearning.php">ML Algorithm</a></li>
-            <li><i class="fa-solid fa-users"></i><a href="Management.php">User Management</a></li>
+            <?php
+                if($session_access == 2){
+		            echo "<li><i class=\"fa-solid fa-users\"></i><a href=\"Management.php\">User Management</a></li>";
+	            }
+            ?>
             <li><i class="fa-solid fa-file-excel"></i><a href="Excel.php">Excel</a></li>
         </div>
     </section>
@@ -61,301 +94,87 @@
         <h3 class="i-name">User Management</h3>
 
 
-        <!-- Table (Useful for User Management/Adaptation to Display Enviro Data) -->
+        <!-- Table -->
         <div class="board">
             <table width="100%">
-                <thead>
-                    <tr>
-                        <td>Name</td>
-                        <td>Title</td>
-                        <td>Status</td>
-                        <td>Role</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="people">
-                            <p><img src="assets/img/userimg.png" /></p>
-                            <div class="people-desc">
-                                <h5>John</h5>
-                                <p>john@email.com</p>
-                            </div>
-                        </td>
+                <?php
+                $query = "SELECT * FROM users ORDER BY id ASC";
+                echo '
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>Name</td>
+                            <td>Role</td>
+                            <td>Status</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                ';
 
-                        <td class="people-des">
-                            <h5>Environmental Analyst</h5>
-                            <p>UTAS</p>
-                        </td>
+                if ($result = $mysqli->query($query)){
+                    while ($row = $result->fetch_assoc()) {
+                        //------------------------- Fetch Role Title --------------------------//
+                        $role_id = $row["role_id"];
+                        $role_query = "SELECT role_title FROM roles WHERE role_id = '$role_id'";
+                        $role_fetch = $mysqli->query($role_query);
+                        $role_result = $role_fetch->fetch_assoc();
+                        //---------------------------------------------------------------------//
 
-                        <td class="active">
-                            <p>Active</p>
-                        </td>
+                        // Fetch user details
+                        $id = $row["id"];
+                        $firstname = $row["first_name"];
+                        $lastname = $row["last_name"];
+                        $email = $row["email"];
+                        $role = $role_result["role_title"];
+                        $institute = $row["institute"]; 
 
-                        <td class="role">
-                            <p>Advisor</p>
-                        </td>
+                        // Construct table 
+                        echo '
+                            <tbody>
+                                <tr>
+                                    <td class="id">
+                                        <p>'.$id.'</p>
+                                    </td>
 
-                        <td class="edit">
-                            <p><a href="#">Edit</a></p>
-                        </td>
-                    </tr>
+                                    <td class="people">
+                                        <p><img src="assets/img/userimg.png" /></p>
+                                        <div class="people-desc">
+                                            <h5>'.$firstname.' '.$lastname.'</h5>
+                                            <p>'.$email.'</p>
+                                        </div>
+                                    </td>
 
+                                    <td class="people-des">
+                                        <h5>'.$role.'</h5>
+                                        <p>'.$institute.'</p>
+                                    </td>';
+                            
+                                    if($row["available"] == 1){
+                                        $status = "Available";
+                                        echo '
+                                        <td class="active">
+                                            <p>'.$status.'</p>
+                                        </td>';
+                                    } else {
+                                        $status = "Unavailable";
+                                        echo '
+                                        <td class="inactive">
+                                            <p>'.$status.'</p>
+                                        </td>';
+                                    }
 
-                    <tr>
-                        <td class="people">
-                            <p><img src="assets/img/userimg.png" /></p>
-                            <div class="people-desc">
-                                <h5>Jane</h5>
-                                <p>jane@email.com</p>
-                            </div>
-                        </td>
-
-                        <td class="people-des">
-                            <h5>Environmental Analyst</h5>
-                            <p>UTAS</p>
-                        </td>
-
-                        <td class="inactive">
-                            <p>Inactive</p>
-                        </td>
-
-                        <td class="role">
-                            <p>Project Manager</p>
-                        </td>
-
-                        <td class="edit">
-                            <p><a href="#">Edit</a></p>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td class="people">
-                            <p><img src="assets/img/userimg.png" /></p>
-                            <div class="people-desc">
-                                <h5>Tom</h5>
-                                <p>tom@email.com</p>
-                            </div>
-                        </td>
-
-                        <td class="people-des">
-                            <h5>Environmental Analyst</h5>
-                            <p>UTAS</p>
-                        </td>
-
-                        <td class="active">
-                            <p>Active</p>
-                        </td>
-
-                        <td class="role">
-                            <p>Advisor</p>
-                        </td>
-
-                        <td class="edit">
-                            <p><a href="#">Edit</a></p>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td class="people">
-                            <p><img src="assets/img/userimg.png" /></p>
-                            <div class="people-desc">
-                                <h5>Dick</h5>
-                                <p>dick@email.com</p>
-                            </div>
-                        </td>
-
-                        <td class="people-des">
-                            <h5>Environmental Analyst</h5>
-                            <p>UTAS</p>
-                        </td>
-
-                        <td class="active">
-                            <p>Active</p>
-                        </td>
-
-                        <td class="role">
-                            <p>Advisor</p>
-                        </td>
-
-                        <td class="edit">
-                            <p><a href="#">Edit</a></p>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td class="people">
-                            <p><img src="assets/img/userimg.png" /></p>
-                            <div class="people-desc">
-                                <h5>Harry</h5>
-                                <p>harry@email.com</p>
-                            </div>
-                        </td>
-
-                        <td class="people-des">
-                            <h5>Environmental Analyst</h5>
-                            <p>UTAS</p>
-                        </td>
-
-                        <td class="active">
-                            <p>Active</p>
-                        </td>
-
-                        <td class="role">
-                            <p>Advisor</p>
-                        </td>
-
-                        <td class="edit">
-                            <p><a href="#">Edit</a></p>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td class="people">
-                            <p><img src="assets/img/userimg.png" /></p>
-                            <div class="people-desc">
-                                <h5>Mike</h5>
-                                <p>mike@email.com</p>
-                            </div>
-                        </td>
-
-                        <td class="people-des">
-                            <h5>Environmental Analyst</h5>
-                            <p>UTAS</p>
-                        </td>
-
-                        <td class="active">
-                            <p>Active</p>
-                        </td>
-
-                        <td class="role">
-                            <p>Advisor</p>
-                        </td>
-
-                        <td class="edit">
-                            <p><a href="#">Edit</a></p>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td class="people">
-                            <p><img src="assets/img/userimg.png" /></p>
-                            <div class="people-desc">
-                                <h5>Will</h5>
-                                <p>will@email.com</p>
-                            </div>
-                        </td>
-
-                        <td class="people-des">
-                            <h5>Environmental Analyst</h5>
-                            <p>UTAS</p>
-                        </td>
-
-                        <td class="active">
-                            <p>Active</p>
-                        </td>
-
-                        <td class="role">
-                            <p>Advisor</p>
-                        </td>
-
-                        <td class="edit">
-                            <p><a href="#">Edit</a></p>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td class="people">
-                            <p><img src="assets/img/userimg.png" /></p>
-                            <div class="people-desc">
-                                <h5>Steve</h5>
-                                <p>steve@email.com</p>
-                            </div>
-                        </td>
-
-                        <td class="people-des">
-                            <h5>Environmental Analyst</h5>
-                            <p>UTAS</p>
-                        </td>
-
-                        <td class="active">
-                            <p>Active</p>
-                        </td>
-
-                        <td class="role">
-                            <p>Advisor</p>
-                        </td>
-
-                        <td class="edit">
-                            <p><a href="#">Edit</a></p>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="people">
-                            <p><img src="assets/img/userimg.png" /></p>
-                            <div class="people-desc">
-                                <h5>Jack</h5>
-                                <p>jack@email.com</p>
-                            </div>
-                        </td>
-
-                        <td class="people-des">
-                            <h5>Environmental Analyst</h5>
-                            <p>UTAS</p>
-                        </td>
-
-                        <td class="inactive">
-                            <p>Inactive</p>
-                        </td>
-
-                        <td class="role">
-                            <p>Advisor</p>
-                        </td>
-
-                        <td class="edit">
-                            <p><a href="#">Edit</a></p>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="people">
-                            <p><img src="assets/img/userimg.png" /></p>
-                            <div class="people-desc">
-                                <h5>Stu</h5>
-                                <p>stu@email.com</p>
-                            </div>
-                        </td>
-
-                        <td class="people-des">
-                            <h5>Environmental Analyst</h5>
-                            <p>UTAS</p>
-                        </td>
-
-                        <td class="active">
-                            <p>Active</p>
-                        </td>
-
-                        <td class="role">
-                            <p>Advisor</p>
-                        </td>
-
-                        <td class="edit">
-                            <p><a href="#">Edit</a></p>
-                        </td>
-                    </tr>
-                </tbody>
+                                    echo '
+                                    <td class="edit">
+                                        <p><a href="#">Edit</a></p>
+                                    </td>
+                                </tr>
+                            <tbody>
+                        ';
+                    }
+                }
+                ?>
             </table>
         </div>
-
-
-
     </section>
 
     <!-- JS Link for BS 5.2 -->

@@ -1,4 +1,30 @@
+<!--
+Machine Learning Page for Environmental Data Analysis Tool
+Author/s: Blake J. Anderson (540244)
+Daiwei Yang (546818)
+-->
 <!DOCTYPE html>
+
+<?php
+    //include the file session.php
+    include('assets/php/session.php');
+
+    //if there is any received error message
+    if(isset($_GET['error']))
+    {
+	    $errormessage=$_GET['error'];
+	    //show error message using javascript alert
+	    echo "
+        <script>alert('$errormessage');</script>";
+    }
+
+	//Puts a logged in user back to the dashboard
+	if($session_access == 0){
+		header('location: ./Sign-In.php?error=Not%20Logged%20In');
+	} else if ($session_access == 1){
+        header('location: ./Dashboard.php?error=Not%20Authorised');
+    }
+?>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -28,7 +54,11 @@
             <li><i class="fa-solid fa-chart-pie"></i><a href="Dashboard.php">Dashboard</a></li>
             <li><i class="fa-solid fa-magnifying-glass-chart"></i><a href="Analysis.php">Data Analysis</a></li>
             <li><i class="fa-solid fa-robot"></i><a href="MachineLearning.php">ML Algorithm</a></li>
-            <li><i class="fa-solid fa-users"></i><a href="Management.php">User Management</a></li>
+            <?php
+                if($session_access == 2){
+		            echo "<li><i class=\"fa-solid fa-users\"></i><a href=\"Management.php\">User Management</a></li>";
+	            }
+            ?>
             <li><i class="fa-solid fa-file-excel"></i><a href="Excel.php">Excel</a></li>
         </div>
     </section>

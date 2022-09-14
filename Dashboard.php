@@ -6,8 +6,14 @@ Daiwei Yang (546818)
 <!DOCTYPE html>
 
 <?php
-    //include the file session.php
+    //DB Connection
+    include("assets/php/db_conn.php");
+
+    //Include the file session.php
     include('assets/php/session.php');
+
+    //Include necessary function
+    include('assets/php/get_data.php');
 
     //if there is any received error message
     if(isset($_GET['error']))
@@ -40,27 +46,34 @@ Daiwei Yang (546818)
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-    <!-- Get data for piecharts -->
-	<?php
-	    include("assets/php/db_conn.php");
-	    $query = "SELECT * FROM abalone";
-	    $result = $mysqli->query($query);
-	    $query2 = "SELECT * FROM abalone2";
-	    $result2 = $mysqli->query($query2);
-	    @$content = $_SESSION["content"];
-	?>
-
     <!-- Retrieve Pie Chart Data-->
     <?php
+        //Set the arrays to the stored previously selected values for the session
         if(isset($_SESSION['ranges1']) & isset($_SESSION['specificfield1'])){
-            $query6 = "SELECT `{$_SESSION['specificfield1']}` FROM `clientdata`";
+            $query6 = "SELECT `{$_SESSION['specificfield1']}` FROM `aq_data`";
             $result6 = $mysqli->query($query6);
             $row6 = mysqli_fetch_array($result6);
             @$rangearr = array();
             while ($row6 = $result6->fetch_assoc()) {
               array_push($rangearr,$row6[$_SESSION['specificfield1']]);
             }
-    
+            //To calculate the percentage of each item
+            $total = 0;
+            foreach(array_count_values($rangearr) as $x => $val){    
+              $total = $val + $total;
+            }
+            foreach(array_count_values($rangearr) as $x => $val){    
+              $percentage = $val / $total;
+            }
+        //Set the arrays to 'TRIP_ID' on startup
+        } else {
+            $query6 = "SELECT `TRIP_ID` FROM `aq_data`";
+            $result6 = $mysqli->query($query6);
+            $row6 = mysqli_fetch_array($result6);
+            @$rangearr = array();
+            while ($row6 = $result6->fetch_assoc()) {
+              array_push($rangearr,$row6['TRIP_ID']);
+            }
             //To calculate the percentage of each item
             $total = 0;
             foreach(array_count_values($rangearr) as $x => $val){    
@@ -107,10 +120,14 @@ Daiwei Yang (546818)
         </div>
 
         <div class="items">
-            <li><i class="fa-solid fa-house"></i><a href="Home.php">Home</a></li>
             <li><i class="fa-solid fa-chart-pie"></i><a href="Dashboard.php">Dashboard</a></li>
             <li><i class="fa-solid fa-magnifying-glass-chart"></i><a href="Analysis.php">Data Analysis</a></li>
-            <li><i class="fa-solid fa-users"></i><a href="Management.php">User Management</a></li>
+            <li><i class="fa-solid fa-robot"></i><a href="MachineLearning.php">ML Algorithm</a></li>
+            <?php
+                if($session_access == 2){
+		            echo "<li><i class=\"fa-solid fa-users\"></i><a href=\"Management.php\">User Management</a></li>";
+	            }
+            ?>
             <li><i class="fa-solid fa-file-excel"></i><a href="Excel.php">Excel</a></li>
         </div>
     </section>
@@ -136,10 +153,6 @@ Daiwei Yang (546818)
         <!-- Title -->
         <h3 class="i-name">Dashboard</h3>
 
-        <?php
-            include('assets/php/get_data.php');
-        ?>
-
 
         <!-- Searching -->
         <form class="row g-3 needs-validation" action="" method="post" >
@@ -147,7 +160,7 @@ Daiwei Yang (546818)
                 <div class="val-box">
                     <!-- Retrive data for the first drop-down list -->
                     <?php
-					    $query3 = "SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE TABLE_NAME = 'clientdata'";
+					    $query3 = "SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE TABLE_NAME = 'aq_data'";
 					    $result3 = $mysqli->query($query3);
 					    $row = mysqli_fetch_array($result3);
 					    $fieldarr = array();
@@ -198,7 +211,7 @@ Daiwei Yang (546818)
                     <!-- Retrive data for the second drop-down list -->
                     <?php
                         if(isset($_SESSION['specificfield1']) & @$_SESSION['specificfield1'] != "" ){
-						    $query4 = "SELECT DISTINCT `{$_SESSION['specificfield1']}` FROM `clientdata`";
+						    $query4 = "SELECT DISTINCT `{$_SESSION['specificfield1']}` FROM `aq_data`";
 						    $result4 = $mysqli->query($query4);
 						    $row2 = mysqli_fetch_array($result4);
 						    $rangearr = array();
@@ -298,7 +311,7 @@ Daiwei Yang (546818)
 					    <tr>
 						    <?php
 						    $query3 = "SELECT `COLUMN_NAME` 
-						    FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE TABLE_NAME = 'clientdata'";
+						    FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE TABLE_NAME = 'aq_data'";
 						    $result3 = $mysqli->query($query3);
 						    $row = mysqli_fetch_array($result3);
 						    while ($row = $result3->fetch_assoc()) {
@@ -310,7 +323,7 @@ Daiwei Yang (546818)
 				    <tbody>
 					    <?php                    
 					    if(isset($_SESSION['ranges1']) & isset($_SESSION['specificfield1']) ){    
-						    @$query5 = "SELECT * FROM `clientdata` WHERE `{$_SESSION['specificfield1']}` = '{$_SESSION['ranges1']}' ORDER BY TRIP_ID ASC";
+						    @$query5 = "SELECT * FROM `aq_data` WHERE `{$_SESSION['specificfield1']}` = '{$_SESSION['ranges1']}' ORDER BY TRIP_ID ASC";
 						    $result5 = $mysqli->query($query5);
                             while ($row3 = $result5->fetch_array(MYSQLI_ASSOC)) {
                                 echo "<tr>";
