@@ -1,0 +1,18 @@
+.modal fade{
+    /* for example... */
+    display: flex;
+}
+
+.modal fade.closed {
+    display: none;
+}
+
+input {
+    float: right;
+}
+
+select {
+    float: right;
+    width: 200px;
+    height: 25px;
+}

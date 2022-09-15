@@ -24,7 +24,7 @@ Daiwei Yang (546818)
 	//Puts a logged in user back to the dashboard
 	if($session_access == 0){
 		header('location: ./Sign-In.php?error=Not%20Logged%20In');
-	} else if ($session_access == 1){
+	} else if ($session_access != 2){
         header('location: ./Dashboard.php?error=Not%20Authorised');
     }
 ?>
@@ -38,7 +38,8 @@ Daiwei Yang (546818)
     <!-- CSS Links -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    
+    <link rel="stylesheet" type="text/css" href="assets/css/manage.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
 
     <!-- jQuery -->
@@ -70,29 +71,22 @@ Daiwei Yang (546818)
     <section id="interface">
         <div class="navigation">
 
-            <!-- Search -->
-            <div class="n1">
-                <div>
-                    <i id="menu-btn" class="fa-solid fa-bars"></i>
-                </div>
-                <div class="search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <form>
-                        <input type="text" placeholder="Search..." />
-                    </form>
-                </div>
-            </div>
+            <!-- Spacer -->
+            <div class="n1"></div>
 
             <!-- Profile (We will likey use something else here)-->
             <div class="profile">
-                <i class="fa-solid fa-bell"></i>
-                <img src="assets/img/userimg.png"/>
+                <img src="assets/img/userimg.png" />
+                <?php
+                if (isset($_SESSION['session_access'])) {
+                    echo "<a class=\"sign-out\"  href=\"assets/php/signout.php\" id=\"loginbutton\">Logout</a>";
+                }
+                ?>
             </div>
         </div>
 
         <!-- Title -->
         <h3 class="i-name">User Management</h3>
-
 
         <!-- Table -->
         <div class="board">
@@ -103,7 +97,7 @@ Daiwei Yang (546818)
                     <thead>
                         <tr>
                             <td>ID</td>
-                            <td>Name</td>
+                            <td>Details</td>
                             <td>Role</td>
                             <td>Status</td>
                             <td></td>
@@ -125,6 +119,7 @@ Daiwei Yang (546818)
                         $firstname = $row["first_name"];
                         $lastname = $row["last_name"];
                         $email = $row["email"];
+                        $num = $row["num"];
                         $role = $role_result["role_title"];
                         $institute = $row["institute"]; 
 
@@ -140,7 +135,7 @@ Daiwei Yang (546818)
                                         <p><img src="assets/img/userimg.png" /></p>
                                         <div class="people-desc">
                                             <h5>'.$firstname.' '.$lastname.'</h5>
-                                            <p>'.$email.'</p>
+                                            <p>'.$num.'  ('.$email.')</p>
                                         </div>
                                     </td>
 
@@ -165,7 +160,7 @@ Daiwei Yang (546818)
 
                                     echo '
                                     <td class="edit">
-                                        <p><a href="#">Edit</a></p>
+                                        <p><a data-id="'.$id.'" class="btn btn-outline-dark openModal">Edit</a></p>
                                     </td>
                                 </tr>
                             <tbody>
@@ -177,6 +172,27 @@ Daiwei Yang (546818)
         </div>
     </section>
 
+
+    <!-- User Management Modal -->
+	<div class="modal fade" id="manageUserModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Manage User</h4>
+				</div>
+
+				<div class="modal-body">
+                <!-- Will be populated via remote method -->
+				</div>
+
+				<div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="updateUserSubmit">Update User</button>
+					<button type="button" class="btn btn-danger closeModal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
     <!-- JS Link for BS 5.2 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     
@@ -186,5 +202,69 @@ Daiwei Yang (546818)
         })
     </script>
 
+    <script>
+    $(document).ready(function(){
+
+        $('.openModal').click(function(){
+   
+            var userid = $(this).data('id');
+
+            // AJAX request
+            $.ajax({
+                url: 'assets/php/populate_modal.php',
+                method: "POST",
+                data: {userid: userid},
+                success: function(response){ 
+                    // Add response in Modal body
+                    $('.modal-body').html(response);
+
+                    // Display Modal
+                    $('#manageUserModal').modal('show'); 
+                }
+            });
+        });
+
+        $(".closeModal").click(function() {
+
+            //close the modal
+            $("#manageUserModal").modal("hide");
+
+        });
+
+        $("#updateUserSubmit").click(function(){
+            var id =        $("#id_display").data('id');
+	        var firstname = $("#firstname").val();
+	        var lastname =  $("#lastname").val();
+	        var email =     $("#email").val();
+	        var num =       $("#num").val();
+	        var institute = $("#institute").val(); 
+            var available = $("#availability option:selected").val();
+					
+            $.ajax({
+                url: "assets/php/edit_user.php",
+                method: "POST",
+                data:{
+                    id,
+                    firstname,
+                    lastname,
+                    email,
+                    num,
+                    institute,
+                    available,
+                },
+                dataType: "html",
+                //Reloads the page to update table
+				success: function (response) {
+					alert(response);
+					if (response.trim() == 'User Successfully Edited.') {
+						location.reload();
+					} else {
+						location.preventDefault();
+					}
+				}
+            });
+        });
+    });
+    </script>
 </body>
 </html>

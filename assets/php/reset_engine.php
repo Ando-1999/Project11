@@ -17,16 +17,7 @@ Author/s: Blake J. Anderson (540244)
 	//receive the password data from the form
 	$pwd=$mysqli->real_escape_string($_POST['pwd']);
 
-	//Check whether email or password is empty
-	if (empty($user)) {
-        echo "Email is required";
-    }
-    elseif (empty($phrase)) {
-        echo "Phrase is required";
-    }
-	elseif (empty($pwd)) {
-        echo "Password is required";
-    }
+	
 	//Secondary check to ensure user/phrase is not empty before proceeding
 	if (($user != "") AND ($phrase != "") AND ($pwd != "")){
 
@@ -54,4 +45,5 @@ Author/s: Blake J. Anderson (540244)
 	} else {
 		echo 'Failed to reset password.';
 	}
+
 ?>

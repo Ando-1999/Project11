@@ -67,23 +67,17 @@ Daiwei Yang (546818)
     <section id="interface">
         <div class="navigation">
 
-            <!-- Search -->
-            <div class="n1">
-                <div>
-                    <i id="menu-btn" class="fa-solid fa-bars"></i>
-                </div>
-                <div class="search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <form>
-                        <input type="text" placeholder="Search..." />
-                    </form>
-                </div>
-            </div>
+            <!-- Spacer -->
+            <div class="n1"></div>
 
             <!-- Profile (We will likey use something else here)-->
             <div class="profile">
-                <i class="fa-solid fa-bell"></i>
-                <img src="assets/img/userimg.png"/>
+                <img src="assets/img/userimg.png" />
+                <?php
+                if (isset($_SESSION['session_access'])) {
+                    echo "<a class=\"sign-out\"  href=\"assets/php/signout.php\" id=\"loginbutton\">Logout</a>";
+                }
+                ?>
             </div>
         </div>
 
