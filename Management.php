@@ -17,8 +17,7 @@ Daiwei Yang (546818)
     {
 	    $errormessage=$_GET['error'];
 	    //show error message using javascript alert
-	    echo "
-        <script>alert('$errormessage');</script>";
+	    echo "<script>alert('$errormessage');</script>";
     }
 
 	//Puts a logged in user back to the dashboard
@@ -94,80 +93,85 @@ Daiwei Yang (546818)
                 <?php
                 $query = "SELECT * FROM users ORDER BY id ASC";
                 echo '
-                    <thead>
-                        <tr>
-                            <td>ID</td>
-                            <td>Details</td>
-                            <td>Role</td>
-                            <td>Status</td>
-                            <td></td>
-                        </tr>
-                    </thead>
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Details</td>
+                        <td>Role</td>
+                        <td>Status</td>
+                        <td></td>
+                    </tr>
+                </thead>
                 ';
 
                 if ($result = $mysqli->query($query)){
-                    while ($row = $result->fetch_assoc()) {
-                        //------------------------- Fetch Role Title --------------------------//
-                        $role_id = $row["role_id"];
-                        $role_query = "SELECT role_title FROM roles WHERE role_id = '$role_id'";
-                        $role_fetch = $mysqli->query($role_query);
-                        $role_result = $role_fetch->fetch_assoc();
-                        //---------------------------------------------------------------------//
+                while ($row = $result->fetch_assoc()) {
+                //------------------------- Fetch Role Title --------------------------//
+                $role_id = $row["role_id"];
+                $role_query = "SELECT role_title FROM roles WHERE role_id = '$role_id'";
+                $role_fetch = $mysqli->query($role_query);
+                $role_result = $role_fetch->fetch_assoc();
+                //---------------------------------------------------------------------//
 
-                        // Fetch user details
-                        $id = $row["id"];
-                        $firstname = $row["first_name"];
-                        $lastname = $row["last_name"];
-                        $email = $row["email"];
-                        $num = $row["num"];
-                        $role = $role_result["role_title"];
-                        $institute = $row["institute"]; 
+                // Fetch user details
+                $id = $row["id"];
+                $firstname = $row["first_name"];
+                $lastname = $row["last_name"];
+                $email = $row["email"];
+                $num = $row["num"];
+                $role = $role_result["role_title"];
+                $institute = $row["institute"]; 
 
-                        // Construct table 
-                        echo '
-                            <tbody>
-                                <tr>
-                                    <td class="id">
-                                        <p>'.$id.'</p>
-                                    </td>
+                // Construct table 
+                echo '
+                <tbody>
+                    <tr>
+                        <td class="id">
+                            <p>'.$id.'</p>
+                        </td>
 
-                                    <td class="people">
-                                        <p><img src="assets/img/userimg.png" /></p>
-                                        <div class="people-desc">
-                                            <h5>'.$firstname.' '.$lastname.'</h5>
-                                            <p>'.$num.'  ('.$email.')</p>
-                                        </div>
-                                    </td>
+                        <td class="people">
+                            <p><img src="assets/img/userimg.png" /></p>
+                            <div class="people-desc">
+                                <h5>'.$firstname.' '.$lastname.'</h5>
+                                <p>'.$num.'  ('.$email.')</p>
+                            </div>
+                        </td>
 
-                                    <td class="people-des">
-                                        <h5>'.$role.'</h5>
-                                        <p>'.$institute.'</p>
-                                    </td>';
+                        <td class="people-des">
+                            <h5>'.$role.'</h5>
+                            <p>'.$institute.'</p>
+                        </td>';
                             
-                                    if($row["available"] == 1){
-                                        $status = "Available";
-                                        echo '
-                                        <td class="active">
-                                            <p>'.$status.'</p>
-                                        </td>';
-                                    } else {
-                                        $status = "Unavailable";
-                                        echo '
-                                        <td class="inactive">
-                                            <p>'.$status.'</p>
-                                        </td>';
-                                    }
+                        if($row["available"] == 1){
+                            $status = "Available";
+                            echo '
+                            <td class="active">
+                                <p>'.$status.'</p>
+                            </td>';
+                        } else {
+                            $status = "Unavailable";
+                            echo '
+                            <td class="inactive">
+                                <p>'.$status.'</p>
+                            </td>';
+                        }
 
-                                    echo '
-                                    <td class="edit">
-                                        <p><a data-id="'.$id.'" class="btn btn-outline-dark openModal">Edit</a></p>
-                                    </td>
-                                </tr>
-                            <tbody>
-                        ';
+                        echo '
+                        <td class="edit">
+                            <p><a data-id="'.$id.'" class="btn btn-outline-dark editModal">Edit</a></p>
+                        </td>
+                    ';
                     }
-                }
-                ?>
+                    }
+                    ?>
+                    </tr>
+                    <tr>
+                        <td class="add">
+                            <p><a data-id="add" class="btn btn-outline-dark addModal">Add User</a></p>
+                        </td>
+                    </tr>
+                <tbody>
             </table>
         </div>
     </section>
@@ -181,13 +185,80 @@ Daiwei Yang (546818)
 					<h4 class="modal-title">Manage User</h4>
 				</div>
 
-				<div class="modal-body">
+				<div class="modal-body manage-modal">
                 <!-- Will be populated via remote method -->
 				</div>
 
 				<div class="modal-footer">
                     <button type="button" class="btn btn-success" id="updateUserSubmit">Update User</button>
-					<button type="button" class="btn btn-danger closeModal">Close</button>
+                    <button type="button" class="btn btn-warning" id="deleteUserWarning">Delete User</button>
+					<button type="button" class="btn btn-danger closeManage">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- User Delete Modal -->
+	<div class="modal fade" id="deleteUserModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Delete User</h4>
+				</div>
+                <div class="modal-body delete-modal">
+                    <h2>Are you sure?</h2>
+				</div>
+				<div class="modal-footer">
+                    <button type="button" class="btn btn-dark" id="deleteUserSubmit">Delete User</button>
+					<button type="button" class="btn btn-danger closeDelete">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- User Add Modal -->
+	<div class="modal fade" id="addUserModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Add User</h4>
+				</div>
+                <div class="modal-body add-modal">
+                    <form id='addUserForm' action='' method='POST'>
+	                    <p>First Name<input id='addfirstname' type='text' /></p>
+	                    <p>Last Name<input id='addlastname' type='text' /></p>
+	                    <p>E-Mail<input id='addemail' type='text' /></p>
+	                    <p>Number<input id='addnum' type='text' /></p>
+	                    <p>Institute<input id='addinstitute' type='text' /></p>
+	                    <p>Availability 
+		                    <select name='availability' id='addavailability'>
+			                    <option value='1' selected>Available</option>
+			                    <option value='0'>Unavailable</option>
+		                    </select>
+	                    </p>
+                        <p>Security Question
+                            <select name="secQuestion" id="addquestion">
+						    <?php
+							    //Query value
+							    $questionsQuery = "SELECT * FROM sec_questions";
+
+							    //a php function using the value
+							    $questionsQueryResult = $mysqli->query($questionsQuery);
+							    echo '<option value="null">--Select an Option--</option>';
+							    while($questionsRow = mysqli_fetch_array($questionsQueryResult)){
+								    echo '
+									    <option value="'.$questionsRow['sq_id'].'">'.$questionsRow['sq_id'].' - '.$questionsRow['question'].'</option>
+								    ';
+							    }
+						    ?>
+					        </select>
+                        </p>
+					    <p>Security Answer<input id='addanswer' type='text' /></p>
+                    </form>
+				</div>
+				<div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="addUserSubmit">Add User</button>
+					<button type="button" class="btn btn-danger closeAdd">Close</button>
 				</div>
 			</div>
 		</div>
@@ -205,7 +276,41 @@ Daiwei Yang (546818)
     <script>
     $(document).ready(function(){
 
-        $('.openModal').click(function(){
+        //Basic Button Functions
+        $(".closeManage").click(function() {
+
+            //close the modal
+            $("#manageUserModal").modal("hide");
+
+        });
+        $(".closeAdd").click(function() {
+
+            //close the modal
+            $("#addUserModal").modal("hide");
+
+        });
+        $(".closeDelete").click(function() {
+
+            //close the modal
+            $("#deleteUserModal").modal("hide");
+
+        });
+        $("#deleteUserWarning").click(function() {
+
+            //close the modal
+            $("#deleteUserModal").modal("show");
+
+        });
+        $(".addModal").click(function() {
+
+            //close the modal
+            $("#addUserModal").modal("show");
+
+        });
+
+
+        // Data Manipulation Functions
+        $('.editModal').click(function(){
    
             var userid = $(this).data('id');
 
@@ -216,21 +321,13 @@ Daiwei Yang (546818)
                 data: {userid: userid},
                 success: function(response){ 
                     // Add response in Modal body
-                    $('.modal-body').html(response);
+                    $('.manage-modal').html(response);
 
                     // Display Modal
                     $('#manageUserModal').modal('show'); 
                 }
             });
         });
-
-        $(".closeModal").click(function() {
-
-            //close the modal
-            $("#manageUserModal").modal("hide");
-
-        });
-
         $("#updateUserSubmit").click(function(){
             var id =        $("#id_display").data('id');
 	        var firstname = $("#firstname").val();
@@ -257,6 +354,61 @@ Daiwei Yang (546818)
 				success: function (response) {
 					alert(response);
 					if (response.trim() == 'User Successfully Edited.') {
+						location.reload();
+					} else {
+						location.preventDefault();
+					}
+				}
+            });
+        });
+        $("#deleteUserSubmit").click(function(){
+            var id = $("#id_display").data('id');
+					
+            $.ajax({
+                url: "assets/php/delete_user.php",
+                method: "POST",
+                data:{
+                    id,
+                },
+                dataType: "html",
+				success: function (response) {
+					alert(response);
+					if (response.trim() == 'User Successfully Deleted.') {
+						location.reload();
+					} else {
+						location.preventDefault();
+					}
+				}
+            });
+        });
+        $("#addUserSubmit").click(function(){
+	        var firstname = $("#addfirstname").val();
+	        var lastname =  $("#addlastname").val();
+	        var email =     $("#addemail").val();
+	        var num =       $("#addnum").val();
+	        var institute = $("#addinstitute").val(); 
+            var available = $("#addavailability option:selected").val();
+            var question =  $("#addquestion option:selected").val();
+            var answer =    $("#addanswer").val();
+					
+            $.ajax({
+                url: "assets/php/add_user.php",
+                method: "POST",
+                data:{
+                    firstname,
+                    lastname,
+                    email,
+                    num,
+                    institute,
+                    available,
+                    question,
+                    answer,
+                },
+                dataType: "html",
+                //Reloads the page to update table
+				success: function (response) {
+					alert(response);
+					if (response.trim() == 'User Successfully Added.') {
 						location.reload();
 					} else {
 						location.preventDefault();

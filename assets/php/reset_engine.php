@@ -10,40 +10,45 @@ Author/s: Blake J. Anderson (540244)
 	//include the file db_conn.php
 	include("db_conn.php");
 
-	//receive the ID data from the form
-	$user=$mysqli->real_escape_string($_POST['user']);
-	//receive the phrase data from the form
-	$phrase=$mysqli->real_escape_string($_POST['phrase']);
-	//receive the password data from the form
+	//receive the data from the form
+	$id=$mysqli->real_escape_string($_POST['id']);
+	$question=$mysqli->real_escape_string($_POST['question']);
+	$answer=$mysqli->real_escape_string($_POST['answer']);
 	$pwd=$mysqli->real_escape_string($_POST['pwd']);
 
-	
+
 	//Secondary check to ensure user/phrase is not empty before proceeding
-	if (($user != "") AND ($phrase != "") AND ($pwd != "")){
+	if (($id != "") AND ($question != "") AND ($answer != "")AND ($pwd != "")){
+		$questionFetch = $mysqli->query("SELECT * FROM sec_answers WHERE id = '".$id."'");
+		$question_cnt = $questionFetch->num_rows;
 
-		$encryptedPassword = password_hash($pwd, PASSWORD_BCRYPT);
+		//Both a check for the question, and the user's role
+		//All users have a sec question, so one will exist within the corresponding field
+		if($question_cnt == 0){
+			echo 'No question exists for this ID. Please ensure ID is correct, and that position is correct. If both are correct, contact IT support.';
+		} else {
+					
+			
+			$questionRow=$questionFetch->fetch_array(MYSQLI_ASSOC);
 
-		//queries to check whether ID is in the table (check whether the user is registered)
-		$userQuery = "SELECT * FROM `users` WHERE email ='$user'";
-
-		//execute query to the database and retrieve the result
-		$userQueryResult = $mysqli->query($userQuery);
-
-		//convert the results to array (the key of the array will be the column names of the table)
-		$rowUser=$userQueryResult->fetch_array(MYSQLI_ASSOC);
-
-		if($rowUser['email'] == $user){
-			if(password_verify($phrase, $rowUser['passphrase'])) {
-				$passwordReset = "UPDATE `users` SET `password` = '$encryptedPassword' WHERE `email` = '$user'";
+			if($question != $questionRow['sq_id']){
+				echo 'Selected question does not match your previously selected question.';
+			} 
+			
+			//Success, now check if answers match			
+			if(crypt($answer, $questionRow['answer'])){
+				$encryptedPassword = password_hash($pwd, PASSWORD_BCRYPT);
+				$passwordReset = "UPDATE users SET password = '".$encryptedPassword."' WHERE id = '".$id."'";
 				if ($mysqli->query($passwordReset) === TRUE) {
-					echo "Password reset.";
+					echo "Password reset!";
+				} else {   
+					//Outputs an error message for the query
+					echo "Error: " . $mysqli->error;
 				}
 			}
-		} else {
-			echo 'Failed to reset password.';
 		}
 	} else {
-		echo 'Failed to reset password.';
+		echo 'Failed to reset password. ' . $id;
 	}
 
 ?>

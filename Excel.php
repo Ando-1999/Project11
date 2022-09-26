@@ -108,7 +108,7 @@ Author/s: Blake J. Anderson (540244)
                     <form class="form-horizontal" action="assets/php/import.php" method="post" id="importcsv" enctype="multipart/form-data">
                         <div class="input-row">
                             <input type="file" name="import_csv" id="import_csv" class="file" accept=".csv"/>
-                            <button type="submit" name="submit" value="submit" class="btn-submit">Import</button>
+                            <button type="submit" name="submit" value="submit" class="btn-submit">Import Data</button>
                         </div>
                     </form>
                 </div>

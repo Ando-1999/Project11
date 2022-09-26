@@ -15,7 +15,6 @@ $num=$mysqli->real_escape_string($_POST['num']);
 $institute=$mysqli->real_escape_string($_POST['institute']);
 $available=$mysqli->real_escape_string($_POST['available']);
 
-
 if (($id != "") AND ($firstname != "") AND ($lastname != "") AND ($email != "") AND ($num != "") AND ($institute != "") AND ($available != "")){
 
     //queries to check whether ID is in the table (check whether the user is registered)
@@ -27,12 +26,9 @@ if (($id != "") AND ($firstname != "") AND ($lastname != "") AND ($email != "") 
 	if ($mysqli->query($updateUser) === TRUE){
 		echo "User Successfully Edited.";
 	}
-	else{
-		echo "Error...";
-	}
 }
 else {
-	echo "Error...";
+	echo "Error...   ";
 }
 
 ?>  

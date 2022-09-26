@@ -12,9 +12,6 @@ Daiwei Yang (546818)
     //Include the file session.php
     include('assets/php/session.php');
 
-    //Include necessary function
-    include('assets/php/get_data.php');
-
     //if there is any received error message
     if(isset($_GET['error']))
     {
@@ -37,14 +34,14 @@ Daiwei Yang (546818)
     <title>Dashboard</title>
 
     <!-- CSS Links -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"     integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"                                                       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!-- Retrieve Pie Chart Data-->
     <?php
@@ -198,7 +195,7 @@ Daiwei Yang (546818)
                             $(document).ready(function(){
 							    var specificfield = $("#specificfield").val();
 							    //Make a post request bt AJAX
-							    $.post("assets/php/searching.php", {specificfield: specificfield},function(data){
+							    $.post("assets/php/search_field.php", {specificfield: specificfield},function(data){
 								    console.log(data)
 							    })
 						    })
@@ -250,7 +247,7 @@ Daiwei Yang (546818)
 					    $(document).ready(function(){
 						    var ranges = $("#ranges").val();
 						    //Make a post request bt AJAX
-						    $.post("assets/php/SearchRange.php", {ranges: ranges},function(data){
+						    $.post("assets/php/search_range.php", {ranges: ranges},function(data){
 							    console.log(data)
 						    })	
 					    })

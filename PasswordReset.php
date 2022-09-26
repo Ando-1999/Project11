@@ -42,23 +42,40 @@
 				<form id="pwdReset" class="form-reset" action="" method="POST">
 					<div class="col-sm-12">
 						<h2 class="subtitle">Password Reset</h2>
-						<br>
 					</div>
+					<hr>
 					<div class="col-sm-12">
-						<p>Please enter your e-mail, and proceed to answer your chosen security question from your registration.</p>
+						<p>Please enter your ID, and proceed to answer your chosen security question from your registration.</p>
 					</div>
-					<label for="userID">Your E-mail: </label>
+					<label for="userID">Your ID: </label>
 					<br>
-					<input class="form-control" type="text" id="userID" name="userID" placeholder="e.g johnsmith@domain.com">
+					<input class="form-control" type="text" id="userID" name="userID" placeholder="1">
 					<br>
-					<label for="phrase">Passphrase: </label>
+					<label for="secQuestion">Question: </label>
 					<br>
-					<input class="form-control" type="text" id="phrase" name="phrase" placeholder="The phrase you entered on account creation">
+					<select class="form-control" id="questionSelect">
+						<?php
+							//Query value
+							$questionsQuery = "SELECT * FROM sec_questions";
+
+							//a php function using the value
+							$questionsQueryResult = $mysqli->query($questionsQuery);
+							echo '<option value="null">--Select an Option--</option>';
+							while($questionsRow = mysqli_fetch_array($questionsQueryResult)){
+								echo '
+									<option value="'.$questionsRow['sq_id'].'">'.$questionsRow['sq_id'].' - '.$questionsRow['question'].'</option>
+								';
+							}
+						?>
+					</select>
 					<br><hr>
+					<label for="answer">Answer: </label>
+					<br>
+					<input class="form-control" type="text" id="answer" name="answer" placeholder="Answer...">
+					<br>
 					<label for="pwd">New Password: </label>
 					<br>
-					<!-- Secondary Password Check? -->
-					<input class="form-control" type="text" id="pwd" name="pwd" placeholder="New password...">
+					<input class="form-control" type="text" id="pwd" name="pwd" placeholder="New Password...">
 					<br><hr>
 					<button type="button" class="btn btn-success btn-reset" id="resetPwdSubmit">Reset Your Password</button>
 					<button type="button" class="btn btn-danger btn-reset" id="resetPwdSubmit" onclick="history.back()">Cancel</button>
@@ -69,16 +86,18 @@
 		<script>
             $(document).ready(function(){
                 $("#resetPwdSubmit").click(function(){
-					var user = $("#userID").val();
-                    var phrase = $("#phrase").val();
+					var id = $("#userID").val();
+                    var question = $("#questionSelect option:selected").val();
+					var answer = $("#answer").val();
 					var pwd = $("#pwd").val();
 
                     $.ajax({
-                        url: "php/reset_engine.php",
+                        url: "assets/php/reset_engine.php",
                         method: "POST",
                         data:{	//Data to be submitted
-                            user,
-							phrase,
+                            id,
+							question,
+							answer,
 							pwd,
                         },
 
@@ -87,7 +106,7 @@
                         //If the message output is as shown, send to main page
                         success: function(response){
                             alert(response);
-                            if(response.trim()=="Password reset."){
+                            if(response.trim()=="Password reset!"){
                                 window.location.href='Sign-In.php';
 							} else {
                                 location.preventDefault();   

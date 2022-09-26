@@ -3,6 +3,7 @@
 Login Engine for Environmental Data Analysis Tool
 Author/s: Blake J. Anderson (540244) and Daiwei Yang (546818)
 */
+	error_reporting(0);
 	//include the file session.php
 	include("session.php");
 	//include the file db_conn.php
@@ -20,7 +21,6 @@ Author/s: Blake J. Anderson (540244) and Daiwei Yang (546818)
     elseif (empty($password)) {
         echo "Password is required";
     }
-
 
 
 	//Secondary check to ensure user/password is not empty before proceeding

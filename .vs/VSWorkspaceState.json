@@ -3,8 +3,9 @@
     "",
     "\\assets",
     "\\assets\\css",
+    "\\assets\\img",
     "\\assets\\php"
   ],
-  "SelectedNode": "\\assets\\php\\login_engine.php",
+  "SelectedNode": "\\assets\\php\\add_user.php",
   "PreviewInSolutionExplorer": false
 }
