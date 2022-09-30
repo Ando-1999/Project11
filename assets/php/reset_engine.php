@@ -11,15 +11,16 @@ Author/s: Blake J. Anderson (540244)
 	include("db_conn.php");
 
 	//receive the data from the form
-	$id=$mysqli->real_escape_string($_POST['id']);
+	$email=$mysqli->real_escape_string($_POST['email']);
 	$question=$mysqli->real_escape_string($_POST['question']);
 	$answer=$mysqli->real_escape_string($_POST['answer']);
 	$pwd=$mysqli->real_escape_string($_POST['pwd']);
 
 
 	//Secondary check to ensure user/phrase is not empty before proceeding
-	if (($id != "") AND ($question != "") AND ($answer != "")AND ($pwd != "")){
-		$questionFetch = $mysqli->query("SELECT * FROM sec_answers WHERE id = '".$id."'");
+	if (($email != "") AND ($question != "") AND ($answer != "")AND ($pwd != "")){
+		//Very neat lil query here
+		$questionFetch = $mysqli->query("SELECT * FROM sec_answers WHERE id IN (SELECT id FROM users WHERE email = '$email')");
 		$question_cnt = $questionFetch->num_rows;
 
 		//Both a check for the question, and the user's role
@@ -52,3 +53,4 @@ Author/s: Blake J. Anderson (540244)
 	}
 
 ?>
+

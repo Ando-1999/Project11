@@ -49,7 +49,7 @@
 					</div>
 					<label for="userID">Your ID: </label>
 					<br>
-					<input class="form-control" type="text" id="userID" name="userID" placeholder="1">
+					<input class="form-control" type="email" id="userID" name="userID" placeholder="placeholder@address.com">
 					<br>
 					<label for="secQuestion">Question: </label>
 					<br>
@@ -86,7 +86,7 @@
 		<script>
             $(document).ready(function(){
                 $("#resetPwdSubmit").click(function(){
-					var id = $("#userID").val();
+					var email = $("#userID").val();
                     var question = $("#questionSelect option:selected").val();
 					var answer = $("#answer").val();
 					var pwd = $("#pwd").val();
@@ -95,7 +95,7 @@
                         url: "assets/php/reset_engine.php",
                         method: "POST",
                         data:{	//Data to be submitted
-                            id,
+                            email,
 							question,
 							answer,
 							pwd,

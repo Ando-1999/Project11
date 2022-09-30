@@ -50,7 +50,6 @@ Author/s:
         <div class="items">
             <li><i class="fa-solid fa-chart-pie"></i><a href="Dashboard.php">Dashboard</a></li>
             <li><i class="fa-solid fa-magnifying-glass-chart"></i><a href="Analysis.php">Data Analysis</a></li>
-            <li><i class="fa-solid fa-robot"></i><a href="MachineLearning.php">ML Algorithm</a></li>
             <?php
                 if($session_access == 2){
 		            echo "<li><i class=\"fa-solid fa-users\"></i><a href=\"Management.php\">User Management</a></li>";
@@ -82,11 +81,9 @@ Author/s:
         <h3 class="i-name">Data Analysis</h3>
 
         <!-- Data Analysis Content -->
-        <div class="values">
-            <p>Basic analysis functions go here</p>
+        <div class="values" >
+            <iframe frameborder="0" width="80%" height="500px" src="https://replit.com/@CCA2056/DataAnalysis?embed=true"></iframe>  
         </div>
-
-
 
     </section>
 

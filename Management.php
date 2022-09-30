@@ -56,7 +56,6 @@ Daiwei Yang (546818)
         <div class="items">
             <li><i class="fa-solid fa-chart-pie"></i><a href="Dashboard.php">Dashboard</a></li>
             <li><i class="fa-solid fa-magnifying-glass-chart"></i><a href="Analysis.php">Data Analysis</a></li>
-            <li><i class="fa-solid fa-robot"></i><a href="MachineLearning.php">ML Algorithm</a></li>
             <?php
                 if($session_access == 2){
 		            echo "<li><i class=\"fa-solid fa-users\"></i><a href=\"Management.php\">User Management</a></li>";
@@ -278,34 +277,24 @@ Daiwei Yang (546818)
 
         //Basic Button Functions
         $(".closeManage").click(function() {
-
             //close the modal
             $("#manageUserModal").modal("hide");
-
         });
         $(".closeAdd").click(function() {
-
             //close the modal
             $("#addUserModal").modal("hide");
-
         });
         $(".closeDelete").click(function() {
-
             //close the modal
             $("#deleteUserModal").modal("hide");
-
         });
         $("#deleteUserWarning").click(function() {
-
             //close the modal
             $("#deleteUserModal").modal("show");
-
         });
         $(".addModal").click(function() {
-
             //close the modal
             $("#addUserModal").modal("show");
-
         });
 
 

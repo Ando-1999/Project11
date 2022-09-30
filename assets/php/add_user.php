@@ -16,12 +16,12 @@ $available=$mysqli->real_escape_string($_POST['available']);
 $question=$mysqli->real_escape_string($_POST['question']);
 $answer=$mysqli->real_escape_string($_POST['answer']);
 
-//Encrypting important data
-$password = password_hash($num, PASSWORD_BCRYPT);
-$answer = password_hash($answer, PASSWORD_BCRYPT);
-
 if (($firstname != "") AND ($lastname != "") AND ($email != "") AND ($num != "") 
 AND ($institute != "") AND ($available != "") AND (($question != "") AND ($question != "null")) AND ($answer != "") ){
+
+	//Encrypting important data
+	$password = password_hash($num, PASSWORD_BCRYPT);
+	$answer = password_hash($answer, PASSWORD_BCRYPT);
 
     //queries to check whether ID is in the table (check whether the user is registered)
 	$addUser = "INSERT INTO `users` (`first_name`, `last_name`, `password`, `email`, `num`, `role_id`, `available`, `institute`) VALUES
