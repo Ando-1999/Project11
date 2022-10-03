@@ -3,7 +3,7 @@
 Edit User Script for Environmental Data Analysis Tool
 Author/s: Blake J. Anderson (540244)
 */
-
+error_reporting(0);
 include('db_conn.php'); //db connection
 
 //receive the data from the form

@@ -5,6 +5,7 @@ Author/s: Blake J. Anderson (540244)
 */
 
 // Load the database configuration file
+error_reporting(0);
 include('db_conn.php');
 
 $userid = 0;
