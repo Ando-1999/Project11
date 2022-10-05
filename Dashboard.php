@@ -210,9 +210,9 @@ Daiwei Yang (546818)
 						    $query4 = "SELECT DISTINCT `{$_SESSION['specificfield1']}` FROM `aq_data`";
 						    $result4 = $mysqli->query($query4);
 						    $row2 = mysqli_fetch_array($result4);
-						    $rangearr = array();
+						    $rangearr2 = array();
 						    while ($row2 = $result4->fetch_assoc()) {
-							    array_push($rangearr,$row2[$_SESSION['specificfield1']]);
+							    array_push($rangearr2,$row2[$_SESSION['specificfield1']]);
 						    }
                         }
                     ?>
@@ -223,7 +223,7 @@ Daiwei Yang (546818)
 						    <option value="">--Please choose an option--</option>
 						    <?php
 						    if(isset($_SESSION['specificfield1'])){
-							    foreach($rangearr as $v2){
+							    foreach($rangearr2 as $v2){
 								    ?>
 								    <option value="<?php echo strtoupper($v2); ?>"><?php echo $v2; ?></option>
 								    <?php

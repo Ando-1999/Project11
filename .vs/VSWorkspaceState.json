@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\assets"
+    "\\assets",
+    "\\assets\\php",
+    "\\assets\\sql"
   ],
-  "SelectedNode": "\\Management.php",
+  "SelectedNode": "\\assets\\php\\signout.php",
   "PreviewInSolutionExplorer": false
 }
