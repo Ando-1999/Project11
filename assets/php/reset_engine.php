@@ -18,7 +18,7 @@ Author/s: Blake J. Anderson (540244)
 
 
 	//Secondary check to ensure user/phrase is not empty before proceeding
-	if (($email != "") AND ($question != "") AND ($answer != "")AND ($pwd != "")){
+	if (($email != "") AND ($question != "") AND ($answer != "") AND ($pwd != "")){
 		//Very neat lil query here
 		$questionFetch = $mysqli->query("SELECT * FROM sec_answers WHERE id IN (SELECT id FROM users WHERE email = '$email')");
 		$question_cnt = $questionFetch->num_rows;
@@ -37,9 +37,9 @@ Author/s: Blake J. Anderson (540244)
 			} 
 			
 			//Success, now check if answers match			
-			if(crypt($answer, $questionRow['answer'])){
+			if( password_verify($answer, $questionRow['answer']) ){
 				$encryptedPassword = password_hash($pwd, PASSWORD_BCRYPT);
-				$passwordReset = "UPDATE users SET password = '".$encryptedPassword."' WHERE id = '".$id."'";
+				$passwordReset = "UPDATE users SET password = '$encryptedPassword' WHERE email = '$email'";
 				if ($mysqli->query($passwordReset) === TRUE) {
 					echo "Password reset!";
 				} else {   
@@ -49,7 +49,7 @@ Author/s: Blake J. Anderson (540244)
 			}
 		}
 	} else {
-		echo 'Failed to reset password. ' . $id;
+		echo 'Failed to reset password. ';
 	}
 
 ?>

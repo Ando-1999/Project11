@@ -75,7 +75,7 @@
 					<br>
 					<label for="pwd">New Password: </label>
 					<br>
-					<input class="form-control" type="text" id="pwd" name="pwd" placeholder="New Password...">
+					<input class="form-control" type="password" id="pwd" name="pwd" placeholder="New Password...">
 					<br><hr>
 					<button type="button" class="btn btn-success btn-reset" id="resetPwdSubmit">Reset Your Password</button>
 					<button type="button" class="btn btn-danger btn-reset" id="resetPwdSubmit" onclick="history.back()">Cancel</button>

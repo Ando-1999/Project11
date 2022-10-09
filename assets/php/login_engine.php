@@ -37,7 +37,7 @@ Author/s: Blake J. Anderson (540244) and Daiwei Yang (546818)
 
 		//Encrypted password and user check
 		//For my test DB, the pwd is 'Project11password!', encrypted with bcrypt (12 rounds)
-		if($rowUser['email'] == $user && password_verify($password, $rowUser['password'])) {
+		if($rowUser['email'] == $user && password_verify($password, $rowUser['password']) ) {
 			//save the ID in the session
 			$session_ID = $rowUser['id'];
 			//save the user's name in the session
